@@ -1,0 +1,20 @@
+export interface Input {
+  head: Marko.AttrTag<Marko.Renderable>,
+  body: Marko.AttrTag<Marko.Renderable>
+}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <${input.head}/>
+  </head>
+  <body>
+    <docs-header title="Marko UI Components Playground"/>
+    <div class="container">
+      <main id="main">
+        <${input.body}/>
+      </main>
+    </div>
+  </body>
+</html>

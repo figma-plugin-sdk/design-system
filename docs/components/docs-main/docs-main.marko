@@ -1,0 +1,40 @@
+<div>
+  <h1>Hello!</h1>
+  <docs-sections>
+    <@section title="Buttons">
+      <table>
+        <tr>
+          <td>
+            <b>Primary:</b>
+          </td>
+          <td>
+            <Button variant="primary">primary</Button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Secondary:&nbsp;</b>
+          </td>
+          <td>
+            <Button variant="secondary">secondary</Button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Tertiary:&nbsp;</b>
+          </td>
+          <td>
+            <Button variant="tertiary">tertiary</Button>
+          </td>
+        </tr>
+      </table>
+      <div>
+        <Button
+          variant=state.buttonVariant
+          onClick("handleChangeButtonVariantClick")>
+          Change Button Variant - ${state.buttonVariant}
+        </Button>
+      </div>
+    </@section>
+  </docs-sections>
+</div>
