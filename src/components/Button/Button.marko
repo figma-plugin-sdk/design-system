@@ -1,11 +1,11 @@
-export type InputProps = {
+export type ButtonProps = {
   variant?: 'primary' | 'secondary' | 'tertiary';
   disabled?: boolean;
   destructive?: boolean;
-  renderBody: Marko.Body;
+  renderBody: Marko.Body<[string]>;
 }
 
-export type Input = InputProps & Marko.Input<'button'>;
+export type Input = ButtonProps & Marko.Input<'button'>;
 
 export const DefaultValues = {
   variant: 'primary',
@@ -14,7 +14,7 @@ export const DefaultValues = {
 } as const;
 
 class {  
-  declare state: Required<InputProps>;
+  declare state: Required<ButtonProps>;
 
   onCreate(input: Input) {
     this.state = {
@@ -37,7 +37,7 @@ class {
   ]
   disabled=input.disabled
 >
-  <${input.renderBody}/> <!-- This is the slot equivalent in Marko -->
+  ${input.renderBody} <!-- This is the slot equivalent in Marko -->
 </button>
 
 

@@ -10,11 +10,22 @@
   "devDependencies": {
     "@marko/build": "^4",
     "@marko/serve": "^4",
-    "debug": "^4.3.4"
+    "@storybook/addon-essentials": "^7.6.4",
+    "@storybook/addon-interactions": "^7.6.4",
+    "@storybook/addon-links": "^7.6.4",
+    "@storybook/blocks": "^7.6.4",
+    "@storybook/marko": "^8.0.1",
+    "@storybook/test": "^7.6.4",
+    "debug": "^4.3.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.6.4"
   },
   "scripts": {
     "build": "marko-build ./docs",
     "dev": "marko-serve ./docs",
-    "start": "node ./build/index.js"
+    "start": "node ./build/index.js",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   }
 }
