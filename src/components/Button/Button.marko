@@ -1,45 +1,38 @@
-export type InputProps = {
+export type ButtonProps = {
   variant?: 'primary' | 'secondary' | 'tertiary';
   disabled?: boolean;
   destructive?: boolean;
-  renderBody: Marko.Body;
-}
-
-export type Input = InputProps & Marko.Input<'button'>;
-
+  renderBody: Marko.Body<[string]>;
+};
+export type Input = ButtonProps & Marko.Input<"button">;
 export const DefaultValues = {
-  variant: 'primary',
-  disabled: false,
-  destructive: false,
+	variant: "primary",
+	disabled: false,
+	destructive: false,
 } as const;
+class {
+	declare state: Required<ButtonProps>;
 
-class {  
-  declare state: Required<InputProps>;
+	onCreate(input: Input) {
+		this.state = {
+			...DefaultValues,
+			...input,
+		};
+	}
 
-  onCreate(input: Input) {
-    this.state = {
-      ...DefaultValues,
-      ...input
-    };
-  }
-
-  handleButtonClick(event: MouseEvent, el: HTMLElement) {
-    event.preventDefault(); // To handle the on:submit|preventDefault
-    el.blur(); // To mimic the onclick blur action
-  }
+	handleButtonClick(event: MouseEvent, el: HTMLElement) {
+		event.preventDefault(); // To handle the on:submit|preventDefault
+		el.blur(); // To mimic the onclick blur action
+	}
 }
 
 <button
-  on-click('handleButtonClick')
-  class=[
-    input.variant || 'primary',
-    input.destructive ? 'destructive' : ''
-  ]
-  disabled=input.disabled
+	on-click("handleButtonClick")
+	class=[input.variant || "primary", input.destructive ? "destructive" : ""]
+	disabled=input.disabled
 >
-  <${input.renderBody}/> <!-- This is the slot equivalent in Marko -->
+	${input.renderBody} <!-- This is the slot equivalent in Marko -->
 </button>
-
 
 style {
 	button {
