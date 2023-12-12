@@ -8,13 +8,36 @@
     "raptor-pubsub": "^1.0.5"
   },
   "devDependencies": {
+    "@etchteam/storybook-addon-status": "^4.2.4",
     "@marko/build": "^4",
-    "@marko/serve": "^4",
-    "debug": "^4.3.4"
+    "@marko/serve": "^4.2.5",
+    "@storybook/addon-actions": "^7.6.4",
+    "@storybook/addon-designs": "^7.0.7",
+    "@storybook/addon-docs": "^7.6.4",
+    "@storybook/addon-essentials": "^7.6.4",
+    "@storybook/addon-interactions": "^7.6.4",
+    "@storybook/addon-links": "^7.6.4",
+    "@storybook/addon-storysource": "^7.6.4",
+    "@storybook/addon-themes": "^7.6.4",
+    "@storybook/addons": "^7.6.4",
+    "@storybook/blocks": "^7.6.4",
+    "@storybook/marko": "^8.0.1",
+    "@storybook/marko-vite": "^1.0.3",
+    "@storybook/test": "^7.6.4",
+    "@storybook/types": "^7.6.4",
+    "debug": "^4.3.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.6.4",
+    "storybook-addon-data-theme-switcher": "^0.1.7",
+    "storybook-dark-mode": "^3.0.3"
   },
   "scripts": {
-    "build": "marko-build ./docs",
-    "dev": "marko-serve ./docs",
-    "start": "node ./build/index.js"
+    "dev": "npm run sb:dev",
+    "start": "npm run marko:build && node ./build/index.js",
+    "marko:dev": "echo 'Marko docs are not implemented yet' && marko-serve ./docs",
+    "marko:build": "echo 'Marko docs are not implemented yet' && marko-build ./docs",
+    "sb:dev": "storybook dev -p 6006",
+    "sb:build": "storybook build"
   }
 }

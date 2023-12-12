@@ -1,4 +1,4 @@
 {
   "script-lang": "ts",
-  "tags-dir": "./components"
+  "tags-dir": "./src/components"
 }
