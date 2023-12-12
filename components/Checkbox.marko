@@ -1,0 +1,65 @@
+class {
+    onCreate(input) {
+        this.state = {
+            uniqueId: `checkbox--${Math.floor(Math.random() * 10000000)}`,
+            checked: input.checked || false, // Defaults to false if unchecked
+            mixed: input.mixed || false,     // Defaults to false if not mixed
+            disabled: input.disabled || false, // Defaults to false if enabled
+            tabindex: input.tabindex || 0,   // Defaults to 0 if no tabindex provided
+            className: input.class || ''     // Defaults to empty string if no class provided
+        };
+    }
+
+    onInput(input) {
+        Object.assign(this.state, input);
+    }
+
+    handleBlur(event) {
+        event.target.blur();
+    }
+
+    handleChange(event) {
+        this.setState('checked', event.target.checked);
+    }
+}
+
+
+<div class=[state.className]>
+    <input
+        type="checkbox" // This specifies that the input is a checkbox
+        id=state.uniqueId
+        aria-checked=(state.mixed ? 'mixed' : undefined)
+        checked=state.checked
+        disabled=state.disabled
+        tabindex=state.tabindex
+        on-blur('handleBlur')
+        on-change('handleChange')
+    />
+    <label for=state.uniqueId>
+    </label>
+</div>
+
+<style>
+    .checkbox-container {
+        align-items: center;
+        cursor: default;
+        display: flex;
+        position: relative;
+    }
+
+    .checkbox-container input[type="checkbox"] {
+        opacity: 0;
+        width: 10px;
+        height: 10px;
+        margin: 0;
+        padding: 0;
+        flex-shrink: 0;
+    }
+    .checkbox-container input[type="checkbox"]:checked + label:before {
+        border: 1px solid var(--figma-color-bg-brand);
+        background-color: var(--figma-color-bg-brand);
+    }
+    .checkbox-container input[type="checkbox"]:disabled + label {
+        color: var(--figma-color-text-disabled);
+    }
+</style>
