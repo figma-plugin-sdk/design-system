@@ -1,23 +1,13 @@
-import type { Preview } from "@storybook/marko";
-import { createThemeSelector } from "./utils/theme-selector";
+import type { Preview, MarkoRenderer } from "@storybook/marko";
 
-import "./themes.css";
 import "../src/global.css";
 
-const themes = createThemeSelector({
-  items: [
-    { value: "figma-light", title: "Figma (Light)" },
-    { value: "figma-dark", title: "Figma (Dark)" },
-    { value: "figjam", title: "FigJam" },
-  ],
-  defaultValue: "figma-light",
-});
+import "../src/themes/index.css";
 
-export const globalTypes = [themes.globalType];
-
-// export const decorators = [themes.decorator];
+import * as decorators from "./decorators";
 
 export default {
+  decorators: [decorators.themes],
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
     layout: "centered",

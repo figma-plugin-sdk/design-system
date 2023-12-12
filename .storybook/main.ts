@@ -8,15 +8,18 @@ export default {
   ],
   addons: [
     "@storybook/addon-essentials",
-    // "@storybook/addon-docs",
-    // "@storybook/addon-links",
-    // "@storybook/addon-interactions",
+    "@storybook/addon-themes",
+    "@storybook/addon-designs",
+    "@storybook/addon-docs",
+    "@storybook/addon-links",
+    "@storybook/addon-interactions",
+    "@storybook/addon-storysource",
   ],
   framework: {
     name: "@storybook/marko-vite",
     options: {},
   },
-  // docs: {
-  //   autodocs: "tag",
-  // },
+  docs: {
+    autodocs: "tag",
+  },
 } satisfies StorybookConfig;
