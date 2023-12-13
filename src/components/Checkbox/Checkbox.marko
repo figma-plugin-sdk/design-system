@@ -1,0 +1,94 @@
+export type CheckboxProps = {
+  variant?: 'primary' | 'secondary' | 'tertiary';
+  disabled?: boolean;
+  destructive?: boolean;
+  renderBody: Marko.Body<[string]>;
+  label: string;
+  uniqueId: string;
+  checked: boolean;
+  mixed: boolean;
+  tabindex: number;
+  className: string;
+};
+export type Input = CheckboxProps & Marko.Input<"checkbox">;
+export const DefaultValues = {
+    variant: "primary",
+    disabled: false,
+    destructive: false,
+} as const;
+class {
+    declare state: Required<CheckboxProps>;
+
+    onCreate(input: Input) {
+        this.state = {
+            ...DefaultValues,
+            ...input,
+            uniqueId: `checkbox--${Math.floor(Math.random() * 10000000)}`,
+            checked: input.checked || false,
+            mixed: input.mixed || false,
+            disabled: input.disabled || false,
+            tabindex: input.tabindex || 0,
+            className: input.class || "",
+            label: input.label || "", // Add a label property to state
+        };
+    }
+
+    onInput(input: Input) {
+        Object.assign(this.state, input);
+    }
+
+    // handleBlur(event: MouseEvent) {
+    //     event.target.blur();
+    // }
+
+    // handleChange(event: MouseEvent) {
+    //     this.setState("checked", event.target.checked);
+    // }
+}
+
+<div class=[state.className]>
+    <input
+        type="checkbox"
+        id=state.uniqueId
+        aria-checked=(state.mixed ? "mixed" : undefined)
+        checked=state.checked
+        disabled=state.disabled
+        tabindex=state.tabindex
+        on-blur("handleBlur")
+        on-change("handleChange")
+        on-click("handleChange")
+        class=[
+            input.variant || "primary",
+            input.destructive ? "destructive" : "",
+        ]
+    >
+    ${input.renderBody}${" "}>${" "}<!-- Add state.label to display the text beside the checkbox -->
+    <label for=state.uniqueId>
+        ${state.label}
+    </label>
+</div>
+
+<style>
+    .checkbox-container {
+        align-items: center;
+        cursor: default;
+        display: flex;
+        position: relative;
+    }
+
+    .checkbox-container input[type="checkbox"] {
+        opacity: 0;
+        width: 10px;
+        height: 10px;
+        margin: 0;
+        padding: 0;
+        flex-shrink: 0;
+    }
+    .checkbox-container input[type="checkbox"]:checked + label:before {
+        border: 1px solid var(--figma-color-bg-brand);
+        background-color: var(--figma-color-bg-brand);
+    }
+    .checkbox-container input[type="checkbox"]:disabled + label {
+        color: var(--figma-color-text-disabled);
+    }
+</style>
