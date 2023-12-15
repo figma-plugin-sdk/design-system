@@ -1,0 +1,56 @@
+export type DisclosureProps = {
+    variant?: 'primary' | 'secondary' | 'tertiary';
+    disabled?: boolean;
+    renderBody: Marko.Body<[string]>;
+    selected: null;
+};
+export type Input = DisclosureProps & Marko.Input<"disclosure">;
+export const DefaultValues = {
+    variant: "primary",
+    disabled: false,
+    selected: null,
+} as const;
+class {
+    declare state: Required<DisclosureProps>;
+
+    onCreate(input: Input) {
+        this.state = {
+            ...DefaultValues,
+            ...input,
+        };
+    }
+
+    clickHandler(itemId) {
+        const currentVal = this.state.selected;
+        if (currentVal !== itemId) {
+            this.state.selected = itemId;
+            this.emit("change", itemId);
+        } else {
+            this.state.selected = null;
+            this.emit("change", null);
+        }
+    }
+
+    getDisclosureContext() {
+        return {
+            clickHandler: this.clickHandler.bind(this),
+            selected: this.state.selected,
+        };
+    }
+}
+
+<template>
+    <ul class=[input.variant || "primary"] on-click("clickHandler")>
+        ${input.renderBody}
+    </ul>
+</template>
+
+<style>
+    ul {
+        position: relative;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+</style>
