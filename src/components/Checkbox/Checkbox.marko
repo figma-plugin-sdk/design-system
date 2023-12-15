@@ -36,13 +36,12 @@ class {
         };
     }
 
-    handleCheckboxClick(event: MouseEvent, el: HTMLElement) {
+    handleCheckboxClick() {
         this.state.checked = !this.state.checked;
     }
 }
 
 <div class=[input.variant || "primary"] id=state.uniqueId on-click("handleCheckboxClick")>
-    <!-- Checkbox input -->
     <input type="checkbox" 
            id=state.uniqueId 
            checked=state.checked 
@@ -50,10 +49,7 @@ class {
            tabindex=state.tabindex 
            mixed=state.mixed />
 
-    <!-- Label for the checkbox -->
     <label for=state.uniqueId>${state.label}</label>
-
-    <!-- Render custom body content -->
     <if(input.renderBody)>
         ${input.renderBody}
     </if>
