@@ -1,59 +1,92 @@
 import type { Meta, StoryObj } from "@storybook/marko";
+import { action } from '@storybook/addon-actions';
 
 import Checkbox, { Input } from "./Checkbox.marko";
 
-const meta = {
+export default {
     title: "Checkbox",
     component: Checkbox,
     argTypes: {
-        variant: {
-            options: ["primary", "secondary", "tertiary"],
-            control: { type: "select" },
+        checked: {
+            control: 'boolean',
+            description: 'Whether the checkbox is checked'
         },
-    },
-    parameters: {
-        design: {
-            type: "figma",
-            url: "https://www.figma.com/file/vBQD0M0G6zZfxu5ctekUD8/Figma-Plugin-SDK-Design-System?type=design&node-id=148-8002&mode=design&t=ZTf0R45O5VWbPhrY-4",
+        mixed: {
+            control: 'boolean',
+            description: 'Whether the checkbox is in an indeterminate state'
         },
-        status: {
-            type: "beta", // 'beta' | 'stable' | 'deprecated' | 'releaseCandidate'
-            url: "http://www.url.com/status", // will make the tag a link
-            // statuses: {
-            //   add custom statuses for this story here
-            // }
+        value: {
+            control: 'text',
+            description: 'The value of the checkbox'
         },
-    },
+        disabled: {
+            control: 'boolean',
+            description: 'Whether the checkbox is disabled'
+        },
+        tabindex: {
+            control: { type: 'number', min: -1 },
+            description: 'Tab index of the checkbox'
+        },
+        className: {
+            control: 'text',
+            description: 'Custom class name for styling'
+        },
+        uniqueId: {
+            control: 'text',
+            description: 'Unique ID for the checkbox'
+        },
+        onClick: { action: 'clicked' },
+        onChange: { action: 'changed' },
+        onFocus: { action: 'focused' },
+        onBlur: { action: 'blurred' }
+    }
 } satisfies Meta<Input>;
 
-export default meta;
-/**
- * Stories
- */
 type Story = StoryObj<Input>;
 
-const commonArgs: Input = {
-    renderBody: "Click me" as any,
-    variant: "primary",
+export const Default: Story = {
+    args: {
+        checked: false,
+        mixed: false,
+        value: '',
+        disabled: false,
+        tabindex: 0,
+        uniqueId: 'checkbox--default',
+        className: ''
+    },
+    play: async ({ canvasElement }) => {
+        const input = canvasElement.querySelector('input');
+        input.addEventListener('click', action('clicked'));
+        input.addEventListener('change', action('changed'));
+        input.addEventListener('focus', action('focused'));
+        input.addEventListener('blur', action('blurred'));
+    }
 };
 
-export const Primary: Story = {
+export const Checked: Story = {
     args: {
-        ...commonArgs,
-        variant: "primary",
-    },
+        ...Default.args,
+        checked: true
+    }
 };
 
-export const Secondary: Story = {
+export const Disabled: Story = {
     args: {
-        ...commonArgs,
-        variant: "secondary",
-    },
+        ...Default.args,
+        disabled: true
+    }
 };
 
-export const Tertiary: Story = {
+export const CustomClass: Story = {
     args: {
-        ...commonArgs,
-        variant: "tertiary",
-    },
+        ...Default.args,
+        className: 'custom-checkbox'
+    }
+};
+
+export const Indeterminate: Story = {
+    args: {
+        ...Default.args,
+        mixed: true
+    }
 };
