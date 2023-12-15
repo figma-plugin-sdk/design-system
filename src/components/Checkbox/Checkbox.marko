@@ -10,12 +10,21 @@ export type CheckboxProps = {
   tabindex: number;
   className: string;
 };
+
 export type Input = CheckboxProps & Marko.Input<"checkbox">;
+
 export const DefaultValues = {
-    variant: "primary",
-    disabled: false,
-    destructive: false,
+  variant: "primary",
+  disabled: false,
+  destructive: false,
+  checked: false,
+  mixed: false,
+  tabindex: 0,
+  className: '',
+  uniqueId: '',
+  label: '',
 } as const;
+
 class {
     declare state: Required<CheckboxProps>;
 
@@ -23,49 +32,31 @@ class {
         this.state = {
             ...DefaultValues,
             ...input,
-            uniqueId: `checkbox--${Math.floor(Math.random() * 10000000)}`,
-            checked: input.checked || false,
-            mixed: input.mixed || false,
-            disabled: input.disabled || false,
-            tabindex: input.tabindex || 0,
-            className: input.class || "",
-            label: input.label || "", // Add a label property to state
+            uniqueId: input.uniqueId || 'checkbox--' + (Math.random() * 10000000).toFixed(0),
         };
     }
 
-    onInput(input: Input) {
-        Object.assign(this.state, input);
+    handleCheckboxClick(event: MouseEvent, el: HTMLElement) {
+        this.state.checked = !this.state.checked;
     }
-
-    // handleBlur(event: MouseEvent) {
-    //     event.target.blur();
-    // }
-
-    // handleChange(event: MouseEvent) {
-    //     this.setState("checked", event.target.checked);
-    // }
 }
 
-<div class=[state.className]>
-    <input
-        type="checkbox"
-        id=state.uniqueId
-        aria-checked=(state.mixed ? "mixed" : undefined)
-        checked=state.checked
-        disabled=state.disabled
-        tabindex=state.tabindex
-        on-blur("handleBlur")
-        on-change("handleChange")
-        on-click("handleChange")
-        class=[
-            input.variant || "primary",
-            input.destructive ? "destructive" : "",
-        ]
-    >
-    ${input.renderBody}${" "}>${" "}<!-- Add state.label to display the text beside the checkbox -->
-    <label for=state.uniqueId>
-        ${state.label}
-    </label>
+<div class=[input.variant || "primary"] id=state.uniqueId on-click("handleCheckboxClick")>
+    <!-- Checkbox input -->
+    <input type="checkbox" 
+           id=state.uniqueId 
+           checked=state.checked 
+           disabled=state.disabled 
+           tabindex=state.tabindex 
+           mixed=state.mixed />
+
+    <!-- Label for the checkbox -->
+    <label for=state.uniqueId>${state.label}</label>
+
+    <!-- Render custom body content -->
+    <if(input.renderBody)>
+        ${input.renderBody}
+    </if>
 </div>
 
 <style>
@@ -84,10 +75,14 @@ class {
         padding: 0;
         flex-shrink: 0;
     }
+
+    /* Style for checked state */
     .checkbox-container input[type="checkbox"]:checked + label:before {
         border: 1px solid var(--figma-color-bg-brand);
         background-color: var(--figma-color-bg-brand);
     }
+
+    /* Style for disabled state */
     .checkbox-container input[type="checkbox"]:disabled + label {
         color: var(--figma-color-text-disabled);
     }
