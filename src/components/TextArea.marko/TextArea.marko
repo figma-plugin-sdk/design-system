@@ -1,0 +1,13 @@
+<textarea
+    class="textarea"
+    rows=input.rows
+    disabled=input.disabled
+    aria-disabled=(input.disabled ? "true" : undefined)
+>
+${input.initialValue}
+</textarea>
+export interface Input {
+    rows: number;
+    initialValue?: string;
+    disabled?: boolean;
+}

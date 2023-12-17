@@ -1,91 +1,14 @@
-export type IconProps = {
-    variant?: 'primary' | 'secondary' | 'tertiary';
-    renderBody: Marko.Body<[string]>;
-    iconName: string | null;
-    spin: boolean;
-    iconText: string | null;
-    color: string;
-    className: string;
-    clicked: boolean;
-    keydown: boolean;
-};
-export type Input = IconProps & Marko.Input<"icon">;
-export const DefaultValues = {
-    variant: "primary",
-    iconName: null,
-    spin: false,
-    iconText: null,
-    color: '--figma-color-icon',
-    className: '',
-    clicked: false,
-    keydown: false,
-} as const;
-
 class {
-    declare state: Required<IconProps>;
-
-    onCreate(input: Input) {
-        this.state = {
-            ...DefaultValues,
-            ...input,
-        };
-    }
-
-    handleClick() {
-        this.state.clicked = !this.state.clicked;
-    }
-
-    handleKeydown() {
-        this.state.keydown = !this.state.keydown;
+    getIconClass(input) {
+        let iconClass = "icon";
+        if (input.name) iconClass += ` icon--${input.name}`;
+        if (input.spin) iconClass += " icon--spin";
+        if (input.color) iconClass += ` icon--${input.color}`;
+        return iconClass;
     }
 }
+interface Input {
+name?: string; // Icon name
 
-<div 
-    on-click("handleClick") 
-    on-keydown("handleKeydown")
-    class=["icon-component" || 'primary', input.className, input.spin ? 'spin' : '']
-
-    >
-    <!-- Conditional rendering for iconText or iconName -->
-    <if (input.iconText)> {
-        ${input.renderBody}
-    }</if>
-        <else (input.iconName)> {
-        <img 
-            src=state.iconName
-            style=state.color 
-            class=[state.spin ? 'spin' : ''] 
-            alt="Component"
-        />
-        </else>
-}
-</div>
-
-<style>
-    .icon-component {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: default;
-        width: var(--size-medium);
-        height: var(--size-medium);
-        font-family: var(--font-stack);
-        font-size: var(--font-size-xsmall);
-        user-select: none;
-    }
-    .spin {
-        animation: rotating 1s linear infinite;
-    }
-    @keyframes rotating {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
-    }
-    :global(.icon-component *) {
-        fill: inherit;
-        color: inherit;
-    }
-</style>
+div class=[this.getIconClass(input)] aria-hidden="true"
+    if(input.isText) -- ${input.content}

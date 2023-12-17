@@ -1,0 +1,20 @@
+<div class="switch">
+    <input
+        class="switch__toggle"
+        type="checkbox"
+        id=input.id
+        checked=input.checked
+        disabled=input.disabled
+        aria-checked=(input.checked ? "true" : "false")
+        aria-disabled=(input.disabled ? "true" : "false")
+    >
+    <label class="switch__label" for=input.id>
+        ${input.label}
+    </label>
+</div>
+export interface Input {
+    id: string;
+    checked?: boolean;
+    disabled?: boolean;
+    label: string;
+}

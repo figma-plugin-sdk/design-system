@@ -1,0 +1,21 @@
+export interface Input {
+    placeholder?: string;
+    value?: string;
+    disabled?: boolean;
+    withIcon?: boolean;
+    iconName?: string;
+}
+
+<div class=["input", input.withIcon ? "input--with-icon" : ""]>
+    <if(input.withIcon)>
+        <div class="icon icon--${input.iconName}"/>
+    </if>
+    <input
+        type="text"
+        class="input__field"
+        placeholder=input.placeholder
+        value=input.value
+        disabled=input.disabled
+        aria-disabled=(input.disabled ? "true" : undefined)
+    >
+</div>

@@ -1,56 +1,60 @@
-export type DisclosureProps = {
-    variant?: 'primary' | 'secondary' | 'tertiary';
-    disabled?: boolean;
-    renderBody: Marko.Body<[string]>;
-    selected: null;
-};
-export type Input = DisclosureProps & Marko.Input<"disclosure">;
-export const DefaultValues = {
-    variant: "primary",
-    disabled: false,
-    selected: null,
-} as const;
+export interface Input {
+    items: {
+        label: string;
+        content: string;
+        expanded?: boolean;
+        section?: boolean;
+    };
+    customStyles?: string; // For responsive design
+}
 class {
-    declare state: Required<DisclosureProps>;
-
-    onCreate(input: Input) {
+    onCreate() {
         this.state = {
-            ...DefaultValues,
-            ...input,
+            expandedStates: {},
         };
     }
 
-    clickHandler(itemId) {
-        const currentVal = this.state.selected;
-        if (currentVal !== itemId) {
-            this.state.selected = itemId;
-            this.emit("change", itemId);
-        } else {
-            this.state.selected = null;
-            this.emit("change", null);
-        }
-    }
+    toggleItem(index) {
+        const isExpanded = this.state.expandedStates[index] || false;
+        this.state.expandedStates[index] = !isExpanded;
 
-    getDisclosureContext() {
-        return {
-            clickHandler: this.clickHandler.bind(this),
-            selected: this.state.selected,
-        };
+        // Emit custom event
+        this.emit(isExpanded ? "collapse" : "expand", { index });
     }
 }
 
-<template>
-    <ul class=[input.variant || "primary"] on-click("clickHandler")>
-        ${input.renderBody}
-    </ul>
-</template>
-
-<style>
-    ul {
-        position: relative;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-    }
-</style>
+<ul class="disclosure" role="list">
+    <for|item, index| of=input.items>
+        <li
+            class=[
+                "disclosure__item",
+                this.state.expandedStates[index] ? "disclosure--expanded" : "",
+                item.section ? "disclosure--section" : "",
+            ]
+            onClick("toggleItem", index)
+            role="listitem"
+            aria-controls=`disclosure-content-${index}`
+        >
+            <div
+                class="disclosure__label"
+                role="button"
+                tabindex="0"
+                aria-expanded=(
+                    this.state.expandedStates[index] ? "true" : "false"
+                )
+                onKeyPress=["Enter", "toggleItem", index]
+            >
+                ${item.label}
+            </div>
+            <div
+                id=`disclosure-content-${index}`
+                class="disclosure__content"
+                aria-hidden=(
+                    this.state.expandedStates[index] ? "false" : "true"
+                )
+            >
+                ${item.content}
+            </div>
+        </li>
+    </for>
+</ul>

@@ -1,0 +1,22 @@
+<div class="radio">
+    <input
+        id=input.id
+        type="radio"
+        class="radio__button"
+        value=input.value
+        name=input.name
+        checked=input.checked
+        disabled=input.disabled
+    >
+    <label for=input.id class="radio__label">
+        ${input.label}
+    </label>
+</div>
+export interface Input {
+    id: string;
+    value: string;
+    name: string;
+    checked?: boolean;
+    disabled?: boolean;
+    label: string;
+}

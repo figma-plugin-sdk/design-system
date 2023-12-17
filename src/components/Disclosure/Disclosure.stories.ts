@@ -1,51 +1,36 @@
-import type { Meta, StoryObj } from "@storybook/marko";
+import Disclosure from './Disclosure.marko'; // Adjust the import path as necessary
 import { action } from '@storybook/addon-actions';
 
-import Disclosure, { Input } from "./Disclosure.marko";
-
 export default {
-    title: "Disclosure",
+    title: 'Disclosure',
     component: Disclosure,
     argTypes: {
-        variant: {
-            control: 'radio',
-            options: ['primary', 'secondary', 'tertiary'],
-            description: 'The variant of the disclosure'
+        items: {
+            control: 'object',
         },
-        disabled: {
-            control: 'boolean',
-            description: 'Whether the disclosure is disabled'
-        },
-        renderBody: {
+        customStyles: {
             control: 'text',
-            description: 'Custom body content for the disclosure'
         },
-        selected: {
-            control: 'text',
-            description: 'Currently selected item ID'
-        },
-        onChange: { action: 'changed' }
-    }
-} satisfies Meta<Input>;
-
-type Story = StoryObj<Input>;
-
-export const Default: Story = {
-    args: {
-        variant: "primary",
-        disabled: false,
-        renderBody: 'Item 1\nItem 2\nItem 3',
-        selected: null
     },
-    play: async ({ canvasElement, args }) => {
-        const container = canvasElement.querySelector('ul');
-        container.addEventListener('click', (event) => {
-            // Logic to identify clicked item (e.g., via a data attribute)
-            const itemId = event.target.getAttribute('data-item-id');
-            if (itemId) {
-                action('changed')(itemId);
-                args.selected = args.selected === itemId ? null : itemId;
-            }
-        });
-    }
 };
+
+const Template = (args) => ({
+    component: Disclosure,
+    input: args,
+    on: {
+        'expand': action('expand'),
+        'collapse': action('collapse')
+    },
+});
+
+export const Default = Template.bind({});
+Default.args = {
+    items: [
+        { label: 'Item 1', content: 'Content 1', expanded: false, section: false },
+        { label: 'Item 2', content: 'Content 2', expanded: false, section: true },
+        // Add more items as needed
+    ],
+    customStyles: '',
+};
+
+// Additional stories can be added to demonstrate different states or item configurations
