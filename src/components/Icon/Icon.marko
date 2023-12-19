@@ -1,14 +1,42 @@
+export type IconProps = {
+    iconName?: string;
+    spin?: boolean;
+    colorName?: string;
+    iconText?: string;
+    className?: string;
+    renderBody?: Marko.Body<[string]>;
+};
+export type Input = IconProps & Marko.Input<"icon">;
+export const DefaultValues = {
+    iconName: null,
+    spin: false,
+    colorName: null,
+    iconText: null,
+    className: "",
+};
 class {
-    getIconClass(input) {
-        let iconClass = "icon";
-        if (input.name) iconClass += ` icon--${input.name}`;
-        if (input.spin) iconClass += " icon--spin";
-        if (input.color) iconClass += ` icon--${input.color}`;
-        return iconClass;
+    onCreate(input: Input) {
+        this.state = {
+            ...DefaultValues,
+            ...input,
+        };
     }
 }
-interface Input {
-name?: string; // Icon name
 
-div class=[this.getIconClass(input)] aria-hidden="true"
-    if(input.isText) -- ${input.content}
+<div
+    class=[
+        "icon",
+        `icon--${input.iconName}`,
+        {
+            "icon--spin": input.spin,
+        },
+        `icon--${input.colorName}`,
+    ]
+    aria-hidden=(input.iconText ? "false" : "true")
+    aria-label=input.iconText
+    title=input.iconText
+>
+    <if(!input.iconName)>
+        ${input.renderBody}
+    </if>
+</div>

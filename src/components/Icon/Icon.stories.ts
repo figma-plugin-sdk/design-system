@@ -1,56 +1,55 @@
 import { Meta, Story } from '@storybook/marko';
-import Icon from './Icon.marko';
+import Icon from './Icon.marko'; // Adjust the import path as needed
 
 export default {
     title: 'Icon',
     component: Icon,
     argTypes: {
-        name: {
+        iconName: {
             control: 'text',
-            description: 'Icon name',
+            description: 'Name of the icon',
         },
         spin: {
             control: 'boolean',
-            description: 'Whether the icon spins',
+            description: 'Whether the icon should spin',
         },
-        color: {
-            control: 'color',
-            description: 'Icon color',
-        },
-        isText: {
-            control: 'boolean',
-            description: 'True if the icon is text-based',
-        },
-        content: {
+        colorName: {
             control: 'text',
-            description: 'Content for text icon',
+            description: 'Name of the color for the icon',
         },
+        iconText: {
+            control: 'text',
+            description: 'Text associated with the icon',
+        },
+        className: {
+            control: 'text',
+            description: 'Additional CSS classes for the icon',
+        },
+        // Note: Handling renderBody in Storybook might be tricky, as it's a function.
+        // You might need to adjust based on how you use renderBody in your application.
     },
 } as Meta;
 
-const Template: Story = (args) => ({
+interface IconProps {
+    iconName?: string;
+    spin?: boolean;
+    colorName?: string;
+    iconText?: string;
+    className?: string;
+    renderBody?: Marko.Body<[string]>;
+}
+
+const Template: Story<IconProps> = (args) => ({
     input: args,
 });
 
 export const Default = Template.bind({});
 Default.args = {
-    name: 'default-icon',
+    iconName: 'example-icon',
     spin: false,
-    color: 'black',
-    isText: false,
-    content: '',
+    colorName: 'blue',
+    iconText: 'Example Icon',
+    className: 'custom-class',
 };
 
-export const SpinningIcon = Template.bind({});
-SpinningIcon.args = {
-    ...Default.args,
-    name: 'spinner',
-    spin: true,
-};
-
-export const TextIcon = Template.bind({});
-TextIcon.args = {
-    ...Default.args,
-    isText: true,
-    content: 'Text Icon',
-};
+// Additional scenarios can be added similarly

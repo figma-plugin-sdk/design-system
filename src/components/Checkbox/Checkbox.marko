@@ -1,85 +1,37 @@
 export type CheckboxProps = {
-  variant?: 'primary' | 'secondary' | 'tertiary';
-  disabled?: boolean;
-  destructive?: boolean;
-  renderBody: Marko.Body<[string]>;
-  label: string;
-  uniqueId: string;
-  checked: boolean;
-  mixed: boolean;
-  tabindex: number;
-  className: string;
+    id?: string;
+    checked?: boolean;
+    disabled?: boolean;
+    label: string;
 };
-
 export type Input = CheckboxProps & Marko.Input<"checkbox">;
-
 export const DefaultValues = {
-  variant: "primary",
-  disabled: false,
-  destructive: false,
-  checked: false,
-  mixed: false,
-  tabindex: 0,
-  className: '',
-  uniqueId: '',
-  label: '',
-} as const;
-
+    checked: false,
+    disabled: false,
+    label: "",
+};
 class {
-    declare state: Required<CheckboxProps>;
-
+    declare state: CheckboxProps;
     onCreate(input: Input) {
         this.state = {
             ...DefaultValues,
             ...input,
-            uniqueId: input.uniqueId || 'checkbox--' + (Math.random() * 10000000).toFixed(0),
+            id:
+                input.id ||
+                `checkbox-${Math.random().toString(36).substr(2, 9)}`,
         };
-    }
-
-    handleCheckboxClick() {
-        this.state.checked = !this.state.checked;
     }
 }
 
-<div class=[input.variant || "primary"] id=state.uniqueId on-click("handleCheckboxClick")>
-    <input type="checkbox" 
-           id=state.uniqueId 
-           checked=state.checked 
-           disabled=state.disabled 
-           tabindex=state.tabindex 
-           mixed=state.mixed />
-
-    <label for=state.uniqueId>${state.label}</label>
-    <if(input.renderBody)>
-        ${input.renderBody}
-    </if>
+<div class="checkbox">
+    <input
+        type="checkbox"
+        id=state.id
+        class="checkbox__box"
+        checked=state.checked
+        disabled=state.disabled
+    >
+    <label for=state.id class="checkbox__label">
+        ${state.label}
+    </label>
 </div>
-
-<style>
-    .checkbox-container {
-        align-items: center;
-        cursor: default;
-        display: flex;
-        position: relative;
-    }
-
-    .checkbox-container input[type="checkbox"] {
-        opacity: 0;
-        width: 10px;
-        height: 10px;
-        margin: 0;
-        padding: 0;
-        flex-shrink: 0;
-    }
-
-    /* Style for checked state */
-    .checkbox-container input[type="checkbox"]:checked + label:before {
-        border: 1px solid var(--figma-color-bg-brand);
-        background-color: var(--figma-color-bg-brand);
-    }
-
-    /* Style for disabled state */
-    .checkbox-container input[type="checkbox"]:disabled + label {
-        color: var(--figma-color-text-disabled);
-    }
-</style>

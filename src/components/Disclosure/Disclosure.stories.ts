@@ -1,5 +1,6 @@
-import Disclosure from './Disclosure.marko'; // Adjust the import path as necessary
+import { Meta, Story } from '@storybook/marko';
 import { action } from '@storybook/addon-actions';
+import Disclosure from './Disclosure.marko'
 
 export default {
     title: 'Disclosure',
@@ -7,30 +8,35 @@ export default {
     argTypes: {
         items: {
             control: 'object',
-        },
-        customStyles: {
-            control: 'text',
+            description: 'Array of disclosure items',
         },
     },
-};
+} as Meta;
 
-const Template = (args) => ({
-    component: Disclosure,
+interface Disclosure {
+    items: typeof Disclosure[];
+}
+
+const Template: Story = (args) => ({
     input: args,
-    on: {
-        'expand': action('expand'),
-        'collapse': action('collapse')
+    methods: {
+        toggleDisclosure(item) {
+            // Simulate state update by modifying args and forcing re-render
+            const newItems = args.items.map((i) =>
+                i.id === item.id ? { ...i, expanded: !i.expanded } : i
+            );
+            this.input = { ...args, items: newItems };
+            action('toggleDisclosure')(item);
+        },
     },
 });
 
 export const Default = Template.bind({});
 Default.args = {
     items: [
-        { label: 'Item 1', content: 'Content 1', expanded: false, section: false },
-        { label: 'Item 2', content: 'Content 2', expanded: false, section: true },
-        // Add more items as needed
+        { id: '1', label: 'Item 1', expanded: false, renderBody: 'Content for Item 1' },
+        { id: '2', label: 'Item 2', expanded: true, isSection: true, renderBody: 'Content for Item 2' },
     ],
-    customStyles: '',
 };
 
-// Additional stories can be added to demonstrate different states or item configurations
+// Additional scenarios can be added similarly
