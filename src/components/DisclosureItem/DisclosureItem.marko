@@ -1,0 +1,120 @@
+import Icon from "../Icon/Icon.marko";
+export;
+export type Input = DisclosureItemProps & Marko.Input<"disclosureItem">;
+export const DefaultValues = {
+    section: false,
+    expanded: false,
+    open: false,
+} as const;
+class {
+    declare state: Required<DisclosureItemProps>;
+
+    onCreate(input: Input) {
+        this.state = {
+            ...DefaultValues,
+            ...input,
+        };
+    }
+
+    toggleExpanded() {
+        this.state.expanded = !this.state.expanded;
+    }
+}
+
+<div class="disclosureItem" on-click("toggleExpanded")>
+    <ul>
+        <li
+            class=[
+                "highlight",
+                {
+                    expanded: state.expanded,
+                    section: state.section,
+                },
+            ]
+            id=state.uniqueId
+        >
+            <div class="header">
+                <div class="icon">
+                    <if(state.expanded)>
+                        <!-- Replace with the actual CaretDown icon component -->
+                        <Icon iconName="CaretDown" color="black"/>
+                    </if>
+                    <else>
+                        <!-- Replace with the actual CaretRight icon component -->
+                        <Icon iconName="CaretRight" color="black"/>
+                    </else>
+                </div>
+                <div class="title">
+                    ${input.title}
+                </div>
+            </div>
+            <div class="content">
+                ${input.renderBody}
+            </div>
+        </li>
+    </ul>
+</div>
+
+<style>
+    .disclosureItem {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        border-bottom: 1px solid var(--color-border-menu);
+    }
+    .disclosureItem:last-child {
+        border-bottom: 1px solid transparent;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        height: var(--size-medium);
+        font-size: var(--font-size-xsmall);
+        font-weight: var(--font-weight-normal);
+        letter-spacing: var(--font-letter-spacing-pos-xsmall);
+        line-height: var(--line-height);
+        color: var(--color-text);
+    }
+    .header:hover .icon {
+        opacity: 0.9;
+    }
+
+    .title {
+        margin-left: -4px;
+        user-select: none;
+    }
+
+    .icon {
+        margin-left: -4px;
+        opacity: 0.3;
+    }
+    .icon.selected {
+        opacity: 0.8;
+    }
+
+    .section {
+        font-weight: var(--font-weight-bold);
+    }
+
+    .content {
+        font-size: var(--font-size-xsmall);
+        font-weight: var(--font-weight-normal);
+        letter-spacing: var(--font-letter-spacing-pos-xsmall);
+        line-height: var(--line-height);
+        color: var(--color-text);
+        padding: var(--size-xxsmall) var(--size-xxsmall) var(--size-xxsmall)
+            var(--size-small);
+        display: none;
+        user-select: none;
+        pointer-events: none;
+    }
+
+    .disclosureItem.expanded .content {
+        display: block;
+    }
+</style>
