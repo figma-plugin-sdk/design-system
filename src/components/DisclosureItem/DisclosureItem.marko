@@ -1,11 +1,21 @@
 import Icon from "../Icon/Icon.marko";
-export;
+
+export type DisclosureItemProps = {
+    title: string;
+    section?: boolean;
+    expanded?: boolean;
+    open?: boolean;
+    uniqueId: 'disclosureItem--' + (Math.random() * 10000000).toFixed(0).toString();
+};
+
 export type Input = DisclosureItemProps & Marko.Input<"disclosureItem">;
+
 export const DefaultValues = {
     section: false,
     expanded: false,
     open: false,
 } as const;
+
 class {
     declare state: Required<DisclosureItemProps>;
 
@@ -13,6 +23,7 @@ class {
         this.state = {
             ...DefaultValues,
             ...input,
+            
         };
     }
 
@@ -24,13 +35,7 @@ class {
 <div class="disclosureItem" on-click("toggleExpanded")>
     <ul>
         <li
-            class=[
-                "highlight",
-                {
-                    expanded: state.expanded,
-                    section: state.section,
-                },
-            ]
+            class=["highlight", { "expanded": state.expanded, "section": state.section }]
             id=state.uniqueId
         >
             <div class="header">
@@ -44,9 +49,7 @@ class {
                         <Icon iconName="CaretRight" color="black"/>
                     </else>
                 </div>
-                <div class="title">
-                    ${input.title}
-                </div>
+                <div class="title">${input.title}</div>
             </div>
             <div class="content">
                 ${input.renderBody}
