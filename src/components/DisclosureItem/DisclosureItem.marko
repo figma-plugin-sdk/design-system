@@ -1,65 +1,68 @@
 import Icon from "../Icon/Icon.marko";
-
+import { IconCaretDown } from "../../../icons/index";
+import { IconCaretRight } from "../../../icons/index";
 export type DisclosureItemProps = {
-    title: string;
-    section?: boolean;
+    uniqueId?: string;
+    title?: string;
     expanded?: boolean;
+    section?: boolean;
     open?: boolean;
-    uniqueId: 'disclosureItem--' + (Math.random() * 10000000).toFixed(0).toString();
+    renderBody: Marko.Body<[string]>;
 };
-
 export type Input = DisclosureItemProps & Marko.Input<"disclosureItem">;
-
 export const DefaultValues = {
-    section: false,
+    uniqueId:
+        "disclosureItem--" + (Math.random() * 10000000).toFixed(0).toString(),
+    title: "",
     expanded: false,
+    section: false,
     open: false,
 } as const;
-
 class {
-    declare state: Required<DisclosureItemProps>;
-
+    declare state: DisclosureItemProps;
     onCreate(input: Input) {
         this.state = {
             ...DefaultValues,
             ...input,
-            
         };
     }
 
-    toggleExpanded() {
+    handleClick(event: MouseEvent) {
+        // Toggle expanded state
         this.state.expanded = !this.state.expanded;
     }
 }
 
-<div class="disclosureItem" on-click("toggleExpanded")>
-    <ul>
-        <li
-            class=["highlight", { "expanded": state.expanded, "section": state.section }]
-            id=state.uniqueId
-        >
-            <div class="header">
-                <div class="icon">
-                    <if(state.expanded)>
-                        <!-- Replace with the actual CaretDown icon component -->
-                        <Icon iconName="CaretDown" color="black"/>
-                    </if>
-                    <else>
-                        <!-- Replace with the actual CaretRight icon component -->
-                        <Icon iconName="CaretRight" color="black"/>
-                    </else>
-                </div>
-                <div class="title">${input.title}</div>
-            </div>
-            <div class="content">
-                ${input.renderBody}
-            </div>
-        </li>
-    </ul>
-</div>
+<li
+    id=state.uniqueId
+    class=[
+        "disclosureItem",
+        {
+            expanded: state.expanded,
+            section: state.section,
+        },
+    ]
+>
+    <div class="header" on-click("handleClick") tabindex="0">
+        <div class="icon">
+            <if(state.expanded)>
+                <Icon iconName=IconCaretDown color="black"/>
+            </if>
+            <else>
+                <Icon iconName=IconCaretRight color="black"/>
+            </else>
+        </div>
+        <div class="title">
+            ${state.title}
+        </div>
+    </div>
+    <div class="content">
+        ${input.renderBody}
+    </div>
+</li>
 
 <style>
-    .disclosureItem {
+    li {
         display: flex;
         flex-direction: column;
         position: relative;
@@ -67,9 +70,9 @@ class {
         margin: 0;
         padding: 0;
         list-style-type: none;
-        border-bottom: 1px solid var(--color-border-menu);
+        border-bottom: 1px solid var(--figma-color-border);
     }
-    .disclosureItem:last-child {
+    li:last-child {
         border-bottom: 1px solid transparent;
     }
 
@@ -81,7 +84,7 @@ class {
         font-weight: var(--font-weight-normal);
         letter-spacing: var(--font-letter-spacing-pos-xsmall);
         line-height: var(--line-height);
-        color: var(--color-text);
+        color: var(--figma-color-text);
     }
     .header:hover .icon {
         opacity: 0.9;
@@ -96,7 +99,7 @@ class {
         margin-left: -4px;
         opacity: 0.3;
     }
-    .icon.selected {
+    .expanded .icon {
         opacity: 0.8;
     }
 
@@ -109,7 +112,7 @@ class {
         font-weight: var(--font-weight-normal);
         letter-spacing: var(--font-letter-spacing-pos-xsmall);
         line-height: var(--line-height);
-        color: var(--color-text);
+        color: var(--figma-color-text);
         padding: var(--size-xxsmall) var(--size-xxsmall) var(--size-xxsmall)
             var(--size-small);
         display: none;
@@ -117,7 +120,7 @@ class {
         pointer-events: none;
     }
 
-    .disclosureItem.expanded .content {
+    .expanded .content {
         display: block;
     }
 </style>

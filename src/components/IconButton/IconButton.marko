@@ -1,0 +1,85 @@
+import Icon from "../Icon/Icon.marko";
+export type IconButtonProps = {
+    iconName?: string;
+    iconText?: string;
+    selected?: boolean;
+    spin?: boolean;
+    className?: string;
+};
+export type Input = IconButtonProps;
+export const DefaultValues = {
+    iconName: "",
+    iconText: "",
+    selected: false,
+    spin: false,
+    className: "",
+} as const;
+class {
+    declare state: IconButtonProps;
+
+    onCreate(input: Input) {
+        this.state = {
+            ...DefaultValues,
+            ...input,
+        };
+    }
+
+    handleClick() {
+        // Implement logic for click event (e.g., toggling the selected state)
+        this.state.selected = !this.state.selected;
+    }
+
+    handleKeyPress(event: KeyboardEvent) {
+        // Implement logic for keypress event (e.g., handling enter key for accessibility)
+        if (event.key === "Enter") {
+            this.handleClick();
+        }
+    }
+}
+
+<div
+    class=[state.className, state.selected ? "selected" : ""]
+    on-click("handleClick")
+    on-keypress("handleKeyPress")
+    style="display: flex; align-items: center; justify-content: center; cursor: pointer; width: var(--size-medium); height: var(--size-medium); border-radius: var(--border-radius-small); border: 2px solid transparent;"
+    tabindex="0"
+>
+    <if(state.selected)>
+        <Icon
+            iconName=state.iconName
+            iconText=state.iconText
+            spin=state.spin
+            color="--figma-color-icon-onbrand"
+        />
+    </if>
+    <else>
+        <Icon
+            iconName=state.iconName
+            iconText=state.iconText
+            spin=state.spin
+            color="--figma-color-icon"
+        />
+    </else>
+</div>
+
+<style>
+    div:hover {
+        background: var(--figma-color-bg-hover);
+    }
+    div:active,
+    div:focus {
+        border: 2px solid var(--figma-color-border-brand-strong);
+        outline: none;
+    }
+
+    .selected {
+        background-color: var(--figma-color-bg-selected-strong);
+    }
+    .selected:hover {
+        background-color: var(--figma-color-bg-selected-strong);
+    }
+    .selected:active,
+    .selected:focus {
+        border: 2px solid var(--figma-color-border-selected-strong);
+    }
+</style>
