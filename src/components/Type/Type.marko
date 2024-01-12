@@ -1,0 +1,14 @@
+<div class=[
+    "type",
+    input.size ? `type--${input.size}` : "",
+    input.weight ? `type--${input.weight}` : "",
+    input.inverse ? "type--inverse" : "",
+]>
+    ${input.content}
+</div>
+export interface Input {
+    size?: "small" | "large" | "xlarge";
+    weight?: "medium" | "bold";
+    inverse?: boolean;
+    content: string;
+}

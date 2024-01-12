@@ -1,0 +1,71 @@
+import { Input } from "../Icon/Icon.marko";
+export interface IconButtonProps {
+    iconText?: string;
+    selected?: boolean;
+    spin?: boolean;
+    className?: string;
+}
+export type Input = IconButtonProps;
+export const Default = {
+    iconText: "",
+    selected: false,
+    spin: false,
+    className: "",
+};
+class {
+    declare state: IconButtonProps;
+
+    onCreate(input: Input) {
+        this.state = {
+            ...Default,
+            ...input,
+        };
+    }
+
+    handleClick() {
+        this.state.selected = !this.state.selected;
+    }
+}
+
+<div
+    class=[state.className, state.selected ? "iconName2" : "iconName"]
+    on-click("handleClick")
+>
+    <if(state.selected)>
+        <Icon
+            iconName2=input.iconName2
+            iconText=input.iconText
+            spin=state.spin
+            color="--figma-color-icon-onbrand"
+        />
+    </if>
+    <if(!state.selected)>
+        <Icon
+            iconName=input.iconName
+            iconText=state.iconText
+            spin=state.spin
+            color="--figma-color-icon"
+        />
+    </if>
+</div>
+
+<style>
+    div:hover {
+        background: var(--figma-color-bg-hover);
+    }
+    div:active,
+    div:focus {
+        border: 2px solid var(--figma-color-border-brand-strong);
+        outline: none;
+    }
+
+    .iconName2 {
+        display: flex;
+        align-items: center;
+    }
+
+    .iconName {
+        display: flex;
+        align-items: center;
+    }
+</style>

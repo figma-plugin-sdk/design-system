@@ -1,0 +1,5 @@
+import{t as g,r as f,_ as C,b as T}from"./registry-81MALNRg.js";import"./_commonjsHelpers-5-cIlDoe.js";import"./_commonjs-dynamic-modules-h-SxKiO4.js";const s="kP+Vx7nf",o=g(s),k=o;f.r(s,()=>o);const u={};o._=C(function(r,n,b,a,x,S){n.be("h2",{class:"section-title"},"0",a,null,1),n.t(r.content,a),n.ee()},{t:s,i:!0},u);o.Component=T(u,o._);const H={title:"SectionTitle",component:k,argTypes:{content:{control:"text",description:"Text content for the header"}}},_=r=>({input:r}),e=_.bind({});e.args={content:"Default Header"};const t=_.bind({});t.args={content:"Custom Header Content"};var c,i,m;e.parameters={...e.parameters,docs:{...(c=e.parameters)==null?void 0:c.docs,source:{originalSource:`args => ({
+  input: args
+})`,...(m=(i=e.parameters)==null?void 0:i.docs)==null?void 0:m.source}}};var p,l,d;t.parameters={...t.parameters,docs:{...(p=t.parameters)==null?void 0:p.docs,source:{originalSource:`args => ({
+  input: args
+})`,...(d=(l=t.parameters)==null?void 0:l.docs)==null?void 0:d.source}}};const E=["Default","CustomContent"];export{t as CustomContent,e as Default,E as __namedExportsOrder,H as default};

@@ -1,0 +1,5 @@
+import{t as b,r as g,_ as f,b as C}from"./registry-81MALNRg.js";import"./_commonjsHelpers-5-cIlDoe.js";import"./_commonjs-dynamic-modules-h-SxKiO4.js";const a="nI0Kx5O0",o=b(a),x=o;g.r(a,()=>o);const _={};o._=f(function(r,n,k,s,T,D){n.be("div",{class:"label"},"0",s,null,1),n.t(r.content,s),n.ee()},{t:a,i:!0},_);o.Component=C(_,o._);const S={title:"Label",component:x,argTypes:{content:{control:"text",description:"Text content of the label"}}},d=r=>({input:r}),e=d.bind({});e.args={content:"Default Label"};const t=d.bind({});t.args={content:"Custom Text Here"};var c,m,p;e.parameters={...e.parameters,docs:{...(c=e.parameters)==null?void 0:c.docs,source:{originalSource:`args => ({
+  input: args
+})`,...(p=(m=e.parameters)==null?void 0:m.docs)==null?void 0:p.source}}};var l,i,u;t.parameters={...t.parameters,docs:{...(l=t.parameters)==null?void 0:l.docs,source:{originalSource:`args => ({
+  input: args
+})`,...(u=(i=t.parameters)==null?void 0:i.docs)==null?void 0:u.source}}};const h=["Default","CustomContent"];export{t as CustomContent,e as Default,h as __namedExportsOrder,S as default};

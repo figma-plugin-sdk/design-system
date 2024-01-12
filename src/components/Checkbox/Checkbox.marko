@@ -1,0 +1,37 @@
+export type CheckboxProps = {
+    id?: string;
+    checked?: boolean;
+    disabled?: boolean;
+    label: string;
+};
+export type Input = CheckboxProps & Marko.Input<"checkbox">;
+export const DefaultValues = {
+    checked: false,
+    disabled: false,
+    label: "",
+};
+class {
+    declare state: CheckboxProps;
+    onCreate(input: Input) {
+        this.state = {
+            ...DefaultValues,
+            ...input,
+            id:
+                input.id ||
+                `checkbox-${Math.random().toString(36).substr(2, 9)}`,
+        };
+    }
+}
+
+<div class="checkbox">
+    <input
+        type="checkbox"
+        id=state.id
+        class="checkbox__box"
+        checked=state.checked
+        disabled=state.disabled
+    >
+    <label for=state.id class="checkbox__label">
+        ${state.label}
+    </label>
+</div>

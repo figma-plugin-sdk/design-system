@@ -1,0 +1,126 @@
+import Icon from "../Icon/Icon.marko";
+import { IconCaretDown } from "../../../icons/index";
+import { IconCaretRight } from "../../../icons/index";
+export type DisclosureItemProps = {
+    uniqueId?: string;
+    title?: string;
+    expanded?: boolean;
+    section?: boolean;
+    open?: boolean;
+    renderBody: Marko.Body<[string]>;
+};
+export type Input = DisclosureItemProps & Marko.Input<"disclosureItem">;
+export const DefaultValues = {
+    uniqueId:
+        "disclosureItem--" + (Math.random() * 10000000).toFixed(0).toString(),
+    title: "",
+    expanded: false,
+    section: false,
+    open: false,
+} as const;
+class {
+    declare state: DisclosureItemProps;
+    onCreate(input: Input) {
+        this.state = {
+            ...DefaultValues,
+            ...input,
+        };
+    }
+
+    handleClick(event: MouseEvent) {
+        // Toggle expanded state
+        this.state.expanded = !this.state.expanded;
+    }
+}
+
+<li
+    id=state.uniqueId
+    class=[
+        "disclosureItem",
+        {
+            expanded: state.expanded,
+            section: state.section,
+        },
+    ]
+>
+    <div class="header" on-click("handleClick") tabindex="0">
+        <div class="icon">
+            <if(state.expanded)>
+                <Icon iconName=IconCaretDown color="black"/>
+            </if>
+            <else>
+                <Icon iconName=IconCaretRight color="black"/>
+            </else>
+        </div>
+        <div class="title">
+            ${state.title}
+        </div>
+    </div>
+    <div class="content">
+        ${input.renderBody}
+    </div>
+</li>
+
+<style>
+    li {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        border-bottom: 1px solid var(--figma-color-border);
+    }
+    li:last-child {
+        border-bottom: 1px solid transparent;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        height: var(--size-medium);
+        font-size: var(--font-size-xsmall);
+        font-weight: var(--font-weight-normal);
+        letter-spacing: var(--font-letter-spacing-pos-xsmall);
+        line-height: var(--line-height);
+        color: var(--figma-color-text);
+    }
+    .header:hover .icon {
+        opacity: 0.9;
+    }
+
+    .title {
+        margin-left: -4px;
+        user-select: none;
+    }
+
+    .icon {
+        margin-left: -4px;
+        opacity: 0.3;
+    }
+    .expanded .icon {
+        opacity: 0.8;
+    }
+
+    .section {
+        font-weight: var(--font-weight-bold);
+    }
+
+    .content {
+        font-size: var(--font-size-xsmall);
+        font-weight: var(--font-weight-normal);
+        letter-spacing: var(--font-letter-spacing-pos-xsmall);
+        line-height: var(--line-height);
+        color: var(--figma-color-text);
+        padding: var(--size-xxsmall) var(--size-xxsmall) var(--size-xxsmall)
+            var(--size-small);
+        display: none;
+        user-select: none;
+        pointer-events: none;
+    }
+
+    .expanded .content {
+        display: block;
+    }
+</style>

@@ -1,0 +1,25 @@
+<select
+    id=input.id
+    class=["select-menu", input.customClass]
+    disabled=input.disabled
+    aria-disabled=(input.disabled ? "true" : undefined)
+>
+    <for|option| of=input.options>
+        <option
+            value=option.value
+            selected=option.value === input.selectedValue
+        >
+            ${option.label}
+        </option>
+    </for>
+</select>
+export interface Input {
+    id: string;
+    options: {
+        value: string;
+        label: string;
+    }[];
+    selectedValue?: string;
+    disabled?: boolean;
+    customClass?: string; // Custom class for styling
+}

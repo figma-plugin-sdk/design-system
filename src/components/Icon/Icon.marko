@@ -1,0 +1,39 @@
+export interface IconProps {
+    iconName?: string;
+    iconName2?: string;
+    spin?: boolean;
+    colorName?: string;
+    iconText?: string;
+    className?: string;
+}
+export type Input = IconProps & Marko.Input<"icon">;
+export const DefaultValues = {
+    iconName: null,
+    iconName2: null,
+    spin: false,
+    colorName: null,
+    iconText: null,
+    className: "",
+};
+class {
+    onCreate(input: Input) {
+        this.state = {
+            ...DefaultValues,
+            ...input,
+        };
+    }
+}
+div class=[
+    "icon",
+    input.iconName ? `icon--${input.iconName}` : "icon--iconName2",
+    {
+        "icon--spin": input.spin,
+    },
+    `icon--${input.colorName}`,
+]
+
+    if(input.iconName)
+        ${input.iconName}
+
+    if(input.iconName2)
+        ${input.iconName2}

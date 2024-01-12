@@ -1,0 +1,51 @@
+export type SelectDividerProps = {
+    label?: string;
+    renderBody: Marko.Body<[string]>;
+};
+export type Input = SelectDividerProps & Marko.Input<"selectDivider">;
+export const DefaultValues = {
+    label: false,
+} as const;
+class {
+    onCreate(input: Input) {
+        this.state = {
+            ...DefaultValues,
+            ...input,
+        };
+    }
+}
+
+<if(input.label)>
+    <li class="label">
+        ${input.renderBody}
+    </li>
+</if>
+<else>
+    <li class="divider"/>
+</else>
+
+<style>
+    .label {
+        font-size: var(--font-size-small);
+        font-weight: var(--font-weight-normal);
+        letter-spacing: var(--font-letter-spacing-neg-small);
+        line-height: var(--line-height);
+        display: flex;
+        align-items: center;
+        height: var(--size-small);
+        margin-top: var(--size-xxsmall);
+        padding: 0 var(--size-xxsmall) 0 var(--size-medium);
+        color: var(--color-text-menu-secondary);
+    }
+    .label:first-child {
+        border-top: none;
+        margin-top: 0;
+    }
+
+    .divider {
+        background-color: var(--color-border-menu);
+        display: block;
+        height: 1px;
+        margin: 8px 0 7px 0;
+    }
+</style>

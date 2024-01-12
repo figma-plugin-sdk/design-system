@@ -1,0 +1,63 @@
+export type Disclosure = {
+    id: string;
+    label: string;
+    expanded?: boolean;
+    isSection?: boolean;
+    renderBody: Marko.Body<[string]>;
+};
+export type Input = {
+    items: Disclosure[];
+} & Marko.Input<"disclosure">;
+export const DefaultValues = {
+    items: [] as Disclosure[],
+    expanded: false,
+    selected: null,
+};
+class {
+    declare state: {
+        items: Disclosure[];
+        selected: string | null;
+    };
+
+    onCreate(input: Input) {
+        this.state = {
+            ...DefaultValues,
+            items: input.items || [],
+        };
+    }
+
+    toggleDisclosure(item: Disclosure) {
+        this.state.items = this.state.items.map((i) =>
+            i.id === item.id ? { ...i, expanded: !i.expanded } : i,
+        );
+    }
+}
+
+<ul class="disclosure">
+    <for|item| of=state.items>
+        <li class=[
+            "disclosure__item",
+            {
+                "disclosure--expanded": item.expanded,
+            },
+        ]>
+            <div
+                class=[
+                    "disclosure__label",
+                    {
+                        "disclosure--section": item.isSection,
+                    },
+                ]
+                on-click("toggleDisclosure", item)
+            >
+                ${item.label}
+            </div>
+            <div
+                class="disclosure__content"
+                aria-expanded=(item.expanded ? "true" : "false")
+            >
+                ${item.renderBody}
+            </div>
+        </li>
+    </for>
+</ul>

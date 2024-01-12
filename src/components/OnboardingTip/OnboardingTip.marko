@@ -1,0 +1,11 @@
+export interface Input {
+    iconName: string; // Icon name for the tip
+    message: string; // Message content of the tip
+}
+
+<div class="onboarding-tip">
+    <div class=`icon icon--${input.iconName}`/>
+    <div class="onboarding-tip__msg">
+        ${input.message}
+    </div>
+</div>
