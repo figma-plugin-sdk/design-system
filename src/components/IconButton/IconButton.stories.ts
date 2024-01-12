@@ -9,6 +9,10 @@ export default {
             control: 'text',
             description: 'Name of the icon',
         },
+        iconName2: {
+            control: 'text',
+            description: 'Name of the second icon',
+        },
         iconText: {
             control: 'text',
             description: 'Text for the icon',
@@ -34,7 +38,6 @@ const Template: Story = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-    iconName: 'defaultIcon',
     iconText: 'Default Icon',
     selected: false,
     spin: false,

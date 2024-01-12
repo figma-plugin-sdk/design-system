@@ -1,11 +1,18 @@
 import { Meta, Story } from '@storybook/marko';
 import Icon from './Icon.marko'; // Adjust the import path as needed
+import LockOff from "../../../icons/lock-off.marko";
+import LockOn from "../../../icons/lock-on.marko";
+
 
 export default {
     title: 'Icon',
     component: Icon,
     argTypes: {
         iconName: {
+            control: 'text',
+            description: 'Name of the icon',
+        },
+        iconName2: {
             control: 'text',
             description: 'Name of the icon',
         },
@@ -30,26 +37,15 @@ export default {
     },
 } as Meta;
 
-interface IconProps {
-    iconName?: string;
-    spin?: boolean;
-    colorName?: string;
-    iconText?: string;
-    className?: string;
-    renderBody?: Marko.Body<[string]>;
-}
-
-const Template: Story<IconProps> = (args) => ({
+const Template: Story = (args) => ({
     input: args,
 });
 
 export const Default = Template.bind({});
 Default.args = {
-    iconName: 'example-icon',
     spin: false,
     colorName: 'blue',
-    iconText: 'Example Icon',
+    iconText: null,
     className: 'custom-class',
-};
 
-// Additional scenarios can be added similarly
+};

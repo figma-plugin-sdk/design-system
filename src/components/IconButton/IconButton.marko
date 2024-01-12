@@ -1,65 +1,52 @@
-import Icon from "../Icon/Icon.marko";
-export type IconButtonProps = {
-    iconName?: string;
+import { Input } from "../Icon/Icon.marko";
+export interface IconButtonProps {
     iconText?: string;
     selected?: boolean;
     spin?: boolean;
     className?: string;
-};
+}
 export type Input = IconButtonProps;
-export const DefaultValues = {
-    iconName: "",
+export const Default = {
     iconText: "",
     selected: false,
     spin: false,
     className: "",
-} as const;
+};
 class {
     declare state: IconButtonProps;
 
     onCreate(input: Input) {
         this.state = {
-            ...DefaultValues,
+            ...Default,
             ...input,
         };
     }
 
     handleClick() {
-        // Implement logic for click event (e.g., toggling the selected state)
         this.state.selected = !this.state.selected;
-    }
-
-    handleKeyPress(event: KeyboardEvent) {
-        // Implement logic for keypress event (e.g., handling enter key for accessibility)
-        if (event.key === "Enter") {
-            this.handleClick();
-        }
     }
 }
 
 <div
-    class=[state.className, state.selected ? "selected" : ""]
+    class=[state.className, state.selected ? "iconName2" : "iconName"]
     on-click("handleClick")
-    on-keypress("handleKeyPress")
-    style="display: flex; align-items: center; justify-content: center; cursor: pointer; width: var(--size-medium); height: var(--size-medium); border-radius: var(--border-radius-small); border: 2px solid transparent;"
-    tabindex="0"
 >
     <if(state.selected)>
         <Icon
-            iconName=state.iconName
-            iconText=state.iconText
+            iconName2=input.iconName2
+            iconText=input.iconText
             spin=state.spin
             color="--figma-color-icon-onbrand"
         />
     </if>
-    <else>
+    <if(!state.selected)>
         <Icon
-            iconName=state.iconName
+            iconName=input.iconName
             iconText=state.iconText
             spin=state.spin
             color="--figma-color-icon"
         />
-    </else>
+    </if>
 </div>
 
 <style>
@@ -72,14 +59,13 @@ class {
         outline: none;
     }
 
-    .selected {
-        background-color: var(--figma-color-bg-selected-strong);
+    .iconName2 {
+        display: flex;
+        align-items: center;
     }
-    .selected:hover {
-        background-color: var(--figma-color-bg-selected-strong);
-    }
-    .selected:active,
-    .selected:focus {
-        border: 2px solid var(--figma-color-border-selected-strong);
+
+    .iconName {
+        display: flex;
+        align-items: center;
     }
 </style>
