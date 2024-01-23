@@ -1,0 +1,63 @@
+<div class="property-container">
+    <h2>
+        Properties
+        <button>+</button>
+    </h2>
+    <ul class="property-list">
+        <!-- List of properties. Each property is a row in the list. -->
+        <li class="property-item">
+            <span class="property-name">
+                State
+            </span>
+            <div class="property-values">
+                Mixed, Off, On, ...
+            </div>
+        </li>
+        <li class="property-item">
+            <span class="property-name">
+                Focused
+            </span>
+            <div class="property-values">
+                False, True
+            </div>
+        </li>
+        <li class="property-item">
+            <span class="property-name">
+                Disabled
+            </span>
+            <div class="property-values">
+                False, True
+            </div>
+        </li>
+    </ul>
+</div>
+
+<style>
+    /* Styles for the property list layout */
+    .property-list {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .property-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+    }
+
+    .property-name {
+        /* Styling for the property name */
+    }
+
+    .property-values {
+        display: flex;
+        gap: 8px;
+        /* Styling for property values, providing space between them */
+    }
+
+    /* Additional styles may be added for things like icons, colors, etc. */
+</style>
