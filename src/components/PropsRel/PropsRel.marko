@@ -1,3 +1,30 @@
+import PropsForm from "../PropForm/PropsForm.marko";
+export interface formModal {
+    showModal: boolean;
+}
+export type Input = formModal;
+export const DefaultValues = {
+    showModal: false,
+};
+class {
+    declare state: formModal;
+    onCreate(input: Input) {
+        this.state = {
+            ...DefaultValues,
+            ...input,
+        };
+    }
+
+    openModal() {
+        // You can use 'data.property' and 'data.value' to pass to the modal if needed
+        this.setState("showModal", true);
+    }
+
+    closeModal() {
+        this.setState("showModal", false);
+    }
+}
+
 <div class="property-container">
     <h4>
         Properties
@@ -10,7 +37,7 @@
             <span class="property-name">
                 State
             </span>
-            <button type="button" class="property-button">
+            <button type="button" class="property-button" on-click("openModal")>
                 Mixed, Off, On, ...
             </button>
         </li>
@@ -33,6 +60,12 @@
     </ul>
 </div>
 
+<if(state.showModal)>
+    <div class="modal-backdrop" on-click("closeModal")/>
+    <div class="modal">
+        <PropsForm/>
+    </div>
+</if>
 style {
     h4 {
         font-family: Arial, sans-serif;
@@ -71,5 +104,32 @@ style {
     .property-button:hover {
         background-color: transparent;
         text-decoration: none;
+    }
+
+    /* Position the property-container relatively to anchor the modal */
+    .property-container {
+        position: relative;
+        /* Other styles... */
+    }
+
+    /* Style for the modal backdrop */
+    .modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+        z-index: 1000; /* Ensure it's above other content but below the modal */
+    }
+
+    /* Style for the modal itself to ensure it's on top */
+    .modal {
+        position: fixed; /* Fixed to the viewport */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* Center the modal */
+        z-index: 1001; /* Higher than the backdrop */
+        /* Other styles for sizing, shadow, etc. */
     }
 }

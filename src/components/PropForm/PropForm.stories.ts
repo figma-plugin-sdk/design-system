@@ -1,7 +1,7 @@
 // PropForm.stories.ts
 import { Meta, Story } from '@storybook/marko';
 import { action } from '@storybook/addon-actions';
-import PropForm from './PropsForm.marko'; // Corrected import statement
+import PropForm from './PropForm.marko';
 
 export default {
     title: 'PropForm',
@@ -20,11 +20,3 @@ Default.args = {
     value: '',
     selectedValue: 'mixed',
 };
-
-// export const WithSelectedValue = Template.bind({});
-// WithSelectedValue.args = {
-//     ...Default.args,
-//     selectedValue: 'on',
-// };
-
-// You can define more scenarios based on the component's functionality

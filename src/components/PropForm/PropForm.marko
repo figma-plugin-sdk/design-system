@@ -1,0 +1,134 @@
+export interface PropForm {
+    value: string | string[];
+    selectedValue: string;
+    newValue: string;
+}
+class {
+    declare state: PropForm;
+
+    onCreate(input: PropForm) {
+        this.state = {
+            ...input,
+        };
+    }
+
+    // Method to handle value selection
+    selectValue(newValue: PropForm) {
+        this.setState({ selectedValue: newValue });
+    }
+}
+
+<div class="form-modal">
+    <!-- <SectionTitle/> -->
+    <div class="form-title">
+        Edit variant property
+    </div>
+
+    <div class="form-title name-input-container">
+        <label for="name" class="name-label">
+            Name
+        </label>
+        <input type="text" id="name" name="name" class="name-input">
+    </div>
+
+    <div class="form-title">
+        Values
+    </div>
+    <for|value| of=["mixed", "on", "off", "undetermined"]>
+        <button
+            type="button"
+            class=["value-button", state.selectedValue === value && "selected"]
+            on-click("selectValue", value)
+        >
+            ${value[0].toUpperCase() + value.slice(1)}
+        </button>
+    </for>
+</div>
+
+<style>
+    .form-modal {
+        width: 22rem; /* Increased width for a more rectangular appearance */
+        border: 0.0625rem solid #ccc; /* 1px equivalent */
+        border-radius: 0.25rem; /* 4px equivalent */
+        padding: 0.9375rem 0; /* 15px equivalent */
+        font-family: Arial, sans-serif;
+        background: #fff;
+        box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1001;
+    }
+
+    .form-title {
+        font-weight: bold;
+        padding: 0.625rem 1.2rem;
+        border-bottom: 0.0625rem solid #ddd;
+        margin-bottom: 1rem; /* Reduced margin for uniform spacing */
+        font-size: 14px;
+        color: #373737;
+    }
+
+    .name-input-container {
+        display: flex;
+        align-items: center;
+        padding: 0.6rem;
+        padding-top: 0.3rem;
+        border-bottom: 0.0625rem solid #ddd;
+        margin-bottom: 1rem; /* Uniform margin to match .form-title */
+    }
+
+    .name-label {
+        margin-right: 5rem;
+        padding: 0 0.7rem;
+    }
+
+    .name-input {
+        flex-grow: 1;
+        max-width: 70%;
+        margin-left: 1.5rem;
+        padding: 0.6rem;
+        border: 0.0625rem solid #ccc;
+        border-radius: 0.1rem;
+    }
+
+    .name-input:focus {
+        border-color: rgb(177, 213, 243);
+    }
+
+    .value-button {
+        display: block;
+        width: 100%;
+        padding: 0.6875rem 1.9rem;
+        margin-left: 0;
+        border: none;
+        background: none;
+        color: #333;
+        cursor: pointer;
+        text-align: left;
+        position: relative;
+        z-index: 1;
+    }
+
+    .value-button:hover,
+    .value-button.selected {
+        background-color: #add8e6;
+    }
+
+    .value-button:hover::after,
+    .value-button.selected::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #dceef5;
+        z-index: -1;
+    }
+
+    .selected {
+        background-color: #dceef5;
+    }
+</style>
