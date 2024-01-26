@@ -1,4 +1,4 @@
-import PropsForm from "../PropForm/PropsForm.marko";
+import PropForm from "../PropForm/PropForm.marko";
 export interface formModal {
     showModal: boolean;
 }
@@ -63,7 +63,7 @@ class {
 <if(state.showModal)>
     <div class="modal-backdrop" on-click("closeModal")/>
     <div class="modal">
-        <PropsForm/>
+        <PropForm/>
     </div>
 </if>
 style {
