@@ -1,13 +1,19 @@
+import Close from "../../../icons/close.marko";
 export interface PropForm {
     value: string | string[];
     selectedValue: string;
     newValue: string;
+    showModal: boolean;
 }
+export const DefaultValues = {
+    showModal: true,
+};
 class {
     declare state: PropForm;
 
     onCreate(input: PropForm) {
         this.state = {
+            ...DefaultValues,
             ...input,
         };
     }
@@ -16,34 +22,44 @@ class {
     selectValue(newValue: PropForm) {
         this.setState({ selectedValue: newValue });
     }
+
+    closeButton() {
+        this.setState("showModal", false);
+    }
 }
+<if(state.showModal)>
+    <div class="form-modal">
+        <div class="form-title">
+            Edit variant property
+            <button class="close-button" onclick("closeButton")>
+                <Close/>
+            </button>
+        </div>
 
-<div class="form-modal">
-    <!-- <SectionTitle/> -->
-    <div class="form-title">
-        Edit variant property
-    </div>
+        <div class="form-title name-input-container">
+            <label for="name" class="name-label">
+                Name
+            </label>
+            <input type="text" id="name" name="name" class="name-input">
+        </div>
 
-    <div class="form-title name-input-container">
-        <label for="name" class="name-label">
-            Name
-        </label>
-        <input type="text" id="name" name="name" class="name-input">
+        <div class="form-title">
+            Values
+        </div>
+        <for|value| of=["mixed", "on", "off", "undetermined"]>
+            <button
+                type="button"
+                class=[
+                    "value-button",
+                    state.selectedValue === value && "selected",
+                ]
+                on-click("selectValue", value)
+            >
+                ${value[0].toUpperCase() + value.slice(1)}
+            </button>
+        </for>
     </div>
-
-    <div class="form-title">
-        Values
-    </div>
-    <for|value| of=["mixed", "on", "off", "undetermined"]>
-        <button
-            type="button"
-            class=["value-button", state.selectedValue === value && "selected"]
-            on-click("selectValue", value)
-        >
-            ${value[0].toUpperCase() + value.slice(1)}
-        </button>
-    </for>
-</div>
+</if>
 
 <style>
     .form-modal {
@@ -62,12 +78,24 @@ class {
     }
 
     .form-title {
+        display: flex;
+        flex-grow: 1; /* Ensure the h4 takes up all available horizontal space */
+        align-items: center;
         font-weight: bold;
-        padding: 0.625rem 1.2rem;
+        padding: 0.5rem 1.2rem;
         border-bottom: 0.0625rem solid #ddd;
         margin-bottom: 1rem; /* Reduced margin for uniform spacing */
         font-size: 14px;
         color: #373737;
+    }
+
+    .close-button {
+        margin-left: auto; /* Pushes the button to the far right within the h4 */
+        padding: 0;
+        border: none;
+        background: none;
+        color: inherit;
+        cursor: pointer;
     }
 
     .name-input-container {
