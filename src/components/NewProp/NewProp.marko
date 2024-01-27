@@ -1,0 +1,111 @@
+class {
+    createVariant() {
+        // Logic for creating a Variant
+    }
+
+    createBoolean() {
+        // Logic for creating a Boolean
+    }
+
+    createInstanceSwap() {
+        // Logic for creating an Instance Swap
+    }
+
+    createText() {
+        // Logic for creating a Text
+    }
+}
+
+<div class="create-property-modal">
+    <div class="create-property-title">
+        Create new property
+    </div>
+    <div class="property-button" on-click("createVariant")>
+        <span class="property-icon">
+            ◆
+        </span>
+        <!-- Placeholder icon -->
+        <span class="property-text">
+            Variant
+        </span>
+    </div>
+    <div class="property-button" on-click("createBoolean")>
+        <span class="property-icon">
+            ◯
+        </span>
+        <!-- Placeholder icon -->
+        <span class="property-text">
+            Boolean
+        </span>
+    </div>
+    <div class="property-button" on-click("createInstanceSwap")>
+        <span class="property-icon">
+            ◇
+        </span>
+        <!-- Placeholder icon -->
+        <span class="property-text">
+            Instance swap
+        </span>
+    </div>
+    <div class="property-button" on-click("createText")>
+        <span class="property-icon">
+            T
+        </span>
+        <!-- Actual text icon -->
+        <span class="property-text">
+            Text
+        </span>
+    </div>
+</div>
+-- ${" "}
+
+
+
+style {
+    .create-property-modal {
+        background-color: #333;
+        color: #fff;
+        border-radius: 2px;
+        padding: 1rem; /* Padding defined here will be taken into account for button width */
+        width: 16rem;
+        font-family: Arial, sans-serif;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1001;
+    }
+
+    .create-property-title {
+        opacity: 0.6;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .property-button {
+        display: flex;
+        align-items: center;
+        padding: 0.4rem 1.5rem;
+        margin: 0 -1rem;
+        border: none;
+        background-color: transparent;
+        color: inherit;
+        cursor: pointer;
+        text-align: left;
+        width: calc(
+            100% + 2rem
+        ); /* Increase width to account for negative margins */
+    }
+
+    .property-button:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .property-button:last-child {
+        margin-bottom: 0;
+    }
+
+    .property-icon {
+        margin-right: 0.5rem;
+    }
+}
