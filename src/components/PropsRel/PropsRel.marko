@@ -1,10 +1,13 @@
 import PropForm from "../PropForm/PropForm.marko";
+import NewProp from "../NewProp/NewProp.marko";
+import Plus from "../../../icons/plus.marko";
 export interface formModal {
-    showModal: boolean;
+    editVariantProp: boolean;
+    createNewProp: boolean;
 }
 export type Input = formModal;
 export const DefaultValues = {
-    showModal: false,
+    editVariantProp: false,
 };
 class {
     declare state: formModal;
@@ -15,21 +18,29 @@ class {
         };
     }
 
-    openModal() {
+    openEdit() {
         // You can use 'data.property' and 'data.value' to pass to the modal if needed
-        this.setState("showModal", true);
+        this.setState("editVariantProp", true);
     }
 
-    closeModal() {
-        this.setState("showModal", false);
+    closeEdit() {
+        this.setState("editVariantProp", false);
+    }
+
+    openCreateNew() {
+        this.setState("createNewProp", true);
+    }
+
+    closeCreateNew() {
+        this.setState("createNewProp", false);
     }
 }
 
 <div class="property-container">
     <h4>
         Properties
-        <button class="property-button">
-            <!-- Plus sign icon tag -->
+        <button class="plus-button" on-click("openCreateNew")>
+            <Plus/>
         </button>
     </h4>
     <ul class="property-list">
@@ -37,7 +48,7 @@ class {
             <span class="property-name">
                 State
             </span>
-            <button type="button" class="property-button" on-click("openModal")>
+            <button type="button" class="property-button" on-click("openEdit")>
                 Mixed, Off, On, ...
             </button>
         </li>
@@ -60,19 +71,48 @@ class {
     </ul>
 </div>
 
-<if(state.showModal)>
-    <div class="modal-backdrop" on-click("closeModal")/>
+<if(state.editVariantProp)>
+    <div class="modal-backdrop" on-click("closeEdit")/>
     <div class="modal">
         <PropForm/>
     </div>
 </if>
+
+<if(state.createNewProp)>
+    <div class="modal">
+        <NewProp/>
+    </div>
+</if>
 style {
+    .header-container {
+        display: flex;
+        justify-content: space-between; /* This will position its children on the far sides */
+        align-items: center;
+        margin-bottom: 8px;
+        padding-right: 1rem;
+    }
+
     h4 {
+        /* h4 is a flex container for the title and button */
+        display: flex;
+        flex-grow: 1; /* Ensure the h4 takes up all available horizontal space */
+        align-items: center;
         font-family: Arial, sans-serif;
         font-size: 14px;
         font-weight: bold;
-        margin-bottom: 8px;
+        margin: 0;
     }
+
+    .plus-button {
+        margin-left: auto; /* Pushes the button to the far right within the h4 */
+        padding: 0;
+        border: none;
+        background: none;
+        color: inherit;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
     .property-list {
         font-family: Arial, sans-serif;
         font-size: 14px;
