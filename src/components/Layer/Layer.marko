@@ -1,0 +1,148 @@
+import CaretRight from "../../../icons/caret-right.marko";
+import CaretDown from "../../../icons/caret-down.marko"; // You need to provide this
+export type Layer = {
+    title: string;
+    hasChildren: boolean;
+    children?: Layer[];
+    selected?: boolean;
+};
+export type Input = {
+  layers: Layer[];
+};
+export const DefaultValues = {
+    layers: [
+        {
+            title: "Parent Layer",
+            hasChildren: true,
+            selected: true,
+            children: [
+                {
+                    title: "Child Layer",
+                    hasChildren: false,
+                    selected: false,
+                },
+                {
+                    title: "Child Layer",
+                    hasChildren: true,
+                    selected: false,
+                    children: [
+                        {
+                            title: "Child's Layer",
+                            hasChildren: false,
+                            selected: false,
+                        },
+                    ],
+                },
+            ],
+        },
+    ],
+};
+class {
+    // Assuming Layer type is already defined
+    declare state: {
+        layers: Layer[];
+    };
+
+    onCreate(input: Input) {
+        this.state = {
+            ...input,
+            ...DefaultValues,
+        };
+    }
+
+    toggleLayer(layer: Layer) {
+        layer.selected = !layer.selected;
+        this.setState("layers", this.state.layers);
+    }
+}
+
+<div class="layer-container">
+    <for|layer| of=state.layers>
+        <div
+            class=["layer", layer.selected && "selected"]
+            on-click("toggleLayer", layer)
+        >
+            <span class="layer-icon" aria-hidden="true">
+                <if(layer.hasChildren)>
+                    <if(layer.selected)>
+                        <CaretDown/>
+                    </if>
+                    <else>
+                        <CaretRight/>
+                    </else>
+                </if>
+            </span>
+            <span class="layer-title">
+                ${layer.title}
+            </span>
+        </div>
+        <if(layer.selected && layer.children)>
+            <div class="layer-children">
+                <for|child| of=layer.children>
+                    <div
+                        class=[
+                            "layer child-layer",
+                            child.selected && "selected",
+                        ]
+                        on-click("toggleLayer", child)
+                    >
+                        <span class="layer-icon child-icon" aria-hidden="true">
+                            <if(layer.hasChildren)>
+                                <if(layer.selected)>
+                                    <CaretDown/>
+                                </if>
+                                <else>
+                                    <CaretRight/>
+                                </else>
+                            </if>
+                        </span>
+                        <span class="layer-title">
+                            ${child.title}
+                        </span>
+                    </div>
+                </for>
+            </div>
+        </if>
+    </for>
+</div>
+
+<style>
+    .layer-container {
+        font-family: Arial, sans-serif;
+    }
+
+    .layer {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        border: none;
+        color: #333;
+        background-color: transparent;
+    }
+
+    .layer.selected {
+        background-color: #e0f0ff; /* Slightly blue background for selected */
+    }
+
+    .layer-icon {
+        margin-right: 0.5rem;
+    }
+
+    .child-icon {
+        margin-left: 1rem; /* Indent child layer icons */
+    }
+
+    .layer-title {
+        /* Styling for the layer title */
+    }
+
+    .layer-children {
+        margin-left: 1rem; /* Indent for child layers */
+        border-left: 2px solid #ddd; /* Border to indicate nesting */
+    }
+
+    .child-layer {
+        padding-left: 1rem; /* Additional padding for child layers */
+    }
+</style>
