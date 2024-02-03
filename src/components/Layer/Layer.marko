@@ -1,10 +1,12 @@
 import CaretRight from "../../../icons/caret-right.marko";
-import CaretDown from "../../../icons/caret-down.marko"; // You need to provide this
+import CaretDown from "../../../icons/caret-down.marko";
 export type Layer = {
-    title: string;
-    hasChildren: boolean;
-    children?: Layer[];
-    selected?: boolean;
+  title: string;
+  hasChildren: boolean;
+  children?: Layer[];
+  selected?: boolean;
+  topLevel?: boolean; // Make topLevel optional
+  topTitle?: string; // Make topTitle optional
 };
 export type Input = {
   layers: Layer[];
@@ -13,21 +15,22 @@ export const DefaultValues = {
     layers: [
         {
             title: "Parent Layer",
+            topLevel: true,
             hasChildren: true,
-            selected: true,
+            selected: false,
             children: [
                 {
-                    title: "Child Layer",
+                    title: "Child Layer 1",
                     hasChildren: false,
                     selected: false,
                 },
                 {
-                    title: "Child Layer",
+                    title: "Child Layer 2",
                     hasChildren: true,
                     selected: false,
                     children: [
                         {
-                            title: "Child's Layer",
+                            title: "Grandchild Layer",
                             hasChildren: false,
                             selected: false,
                         },
@@ -38,28 +41,56 @@ export const DefaultValues = {
     ],
 };
 class {
-    // Assuming Layer type is already defined
-    declare state: {
-        layers: Layer[];
-    };
-
+    declare state: Input;
     onCreate(input: Input) {
         this.state = {
-            ...input,
             ...DefaultValues,
+            ...input,
         };
     }
 
     toggleLayer(layer: Layer) {
         layer.selected = !layer.selected;
-        this.setState("layers", this.state.layers);
+        this.setStateDirty("layers");
     }
 }
+<script>
+    export function renderChildren(children, level) {
+        return children.map(
+            (child) => `
+      <div
+        class=["layer", "child-layer", child.selected && "selected"]
+        style="padding-left: ${
+            1 + level * 0.5
+        }rem" // Increase padding based on nesting level
+        on-click("toggleLayer", child)
+      >
+        <span class="layer-icon" aria-hidden="true">
+          <if(child.hasChildren)>
+            <if(child.selected)>
+              <CaretDown/>
+            <else>
+              <CaretRight/>
+            </else>
+          </if>
+        </span>
+        <span class="layer-title">${child.title}</span>
 
+        <!-- Recursive call for further nested children -->
+        <if(child.selected && child.children)>
+          <div class="layer-children">
+            ${renderChildren(child.children, level + 1)}
+          </div>
+        </if>
+      </div>
+    `,
+        );
+    }
+</script>
 <div class="layer-container">
     <for|layer| of=state.layers>
         <div
-            class=["layer", layer.selected && "selected"]
+            class=["layer", "top-level-layer", layer.selected && "selected"]
             on-click("toggleLayer", layer)
         >
             <span class="layer-icon" aria-hidden="true">
@@ -76,34 +107,42 @@ class {
                 ${layer.title}
             </span>
         </div>
-        <if(layer.selected && layer.children)>
+        <!-- Render child layers with increased padding for nesting -->
+        <if(layer.selected && layer.hasChildren)>
             <div class="layer-children">
-                <for|child| of=layer.children>
-                    <div
-                        class=[
-                            "layer child-layer",
-                            child.selected && "selected",
-                        ]
-                        on-click("toggleLayer", child)
-                    >
-                        <span class="layer-icon child-icon" aria-hidden="true">
-                            <if(layer.hasChildren)>
-                                <if(layer.selected)>
-                                    <CaretDown/>
-                                </if>
-                                <else>
-                                    <CaretRight/>
-                                </else>
-                            </if>
-                        </span>
-                        <span class="layer-title">
-                            ${child.title}
-                        </span>
-                    </div>
-                </for>
+                ${renderChildren(layer.children, 1)}
             </div>
         </if>
     </for>
+    <if(layer.selected && layer.hasChildren)>
+        <div class="layer-children">
+            <for|child, index| of=layer.children>
+                <div
+                    class=[
+                        "layer child-layer",
+                        index === 0 && "first-child-layer",
+                        // Apply class to the first child layer
+                        child.selected && "selected",
+                    ]
+                    on-click("toggleLayer", child)
+                >
+                    <span aria-hidden="true" class="layer-icon">
+                        <if(child.hasChildren)>
+                            <if(child.selected)>
+                                <CaretDown/>
+                            </if>
+                            <else>
+                                <CaretRight/>
+                            </else>
+                        </if>
+                    </span>
+                    <span class="layer-title">
+                        ${child.title}
+                    </span>
+                </div>
+            </for>
+        </div>
+    </if>
 </div>
 
 <style>
@@ -111,38 +150,39 @@ class {
         font-family: Arial, sans-serif;
     }
 
-    .layer {
+    .top-level-layer,
+    .layer.child-layer {
         display: flex;
         align-items: center;
         padding: 0.5rem 1rem;
         cursor: pointer;
         border: none;
-        color: #333;
         background-color: transparent;
+        color: #333;
+    }
+
+    .top-level-layer {
+        font-weight: bold; /* Make top-level layers bold */
+    }
+
+    .first-child-layer {
+        padding-left: 2rem; /* Increased left padding for first child layers */
     }
 
     .layer.selected {
-        background-color: #e0f0ff; /* Slightly blue background for selected */
+        background-color: #e0f0ff; /* Light blue background for selected layers */
     }
 
     .layer-icon {
         margin-right: 0.5rem;
     }
 
-    .child-icon {
-        margin-left: 1rem; /* Indent child layer icons */
-    }
-
-    .layer-title {
-        /* Styling for the layer title */
-    }
-
     .layer-children {
-        margin-left: 1rem; /* Indent for child layers */
-        border-left: 2px solid #ddd; /* Border to indicate nesting */
+        margin-left: 1rem;
+        border-left: 2px solid #ddd; /* Visual cue for nested layers */
     }
 
     .child-layer {
-        padding-left: 1rem; /* Additional padding for child layers */
+        padding-left: 1rem; /* Standard indent for child layers */
     }
 </style>
