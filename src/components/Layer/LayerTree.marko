@@ -1,0 +1,344 @@
+import type { Layer } from "<Layer>";
+import { Type, State } from "<Layer>";
+export { type Layer, Type, State } from "./components/Layer.marko";
+export type Input = {
+    rootLayers: Layer[]
+};
+// class {
+
+//     declare state: Input;
+
+//     onCreate(input: Input) {
+
+//         this.state = {
+
+//             rootLayers: ...DefaultValues,
+
+//             ...input,
+
+//         };
+
+//     }
+
+//     selectLayer(event: MouseEvent, layerIndex: number): void {
+
+//         event.stopPropagation(); // Prevent event bubbling
+
+//         // Your selection logic here...
+
+//         // For example, toggle the selected state of the layer
+
+//         const layer = this.state.rootLayers[layerIndex];
+
+//         layer.selected = !layer.selected;
+
+//         this.setState("rootLayers", this.state.rootLayers); // Update state to trigger re-render
+
+//     }
+
+//     // Function to toggle layer expansion
+
+//     toggleExpand(event: MouseEvent, layerIndex: number): void {
+
+//         event.stopPropagation(); // Prevent event bubbling
+
+//         const layer = this.state.rootLayers[layerIndex];
+
+//         layer.expanded = !layer.expanded; // Toggle expanded state
+
+//         this.setState("rootLayers", this.state.rootLayers); // Update state to trigger re-render
+
+//     }
+
+//     // Function to toggle layer lock
+
+//     toggleLock(layerIndex: number): void {
+
+//         const layer = this.state.rootLayers[layerIndex];
+
+//         layer.locked = !layer.locked; // Toggle locked state
+
+//         this.setState("rootLayers", this.state.rootLayers); // Update state to trigger re-render
+
+//     }
+
+//     // Function to toggle layer visibility
+
+//     toggleVisibility(layerIndex: number): void {
+
+//         const layer = this.state.rootLayers[layerIndex];
+
+//         layer.hidden = !layer.hidden; // Toggle hidden state
+
+//         this.setState("rootLayers", this.state.rootLayers); // Update state to trigger re-render
+
+//     }
+
+//     // Utility function to update the component's state
+
+//     setState(property: string, value: any): void {
+
+//         this.state[property] = value;
+
+//         // Add logic to trigger re-render of the component
+
+//     }
+
+// }
+
+<!-- static const states = Object.keys(State);
+static const types = Object.keys(Type); -->
+// export const SampleValues = [
+
+//     {
+
+//         name: "I have no Children",
+
+//         type: Type.Rectangle,
+
+//         state: State.Normal,
+
+//         selected: false,
+
+//         expanded: false,
+
+//         locked: false,
+
+//         hidden: false,
+
+//         implicitlySelected: false,
+
+//         children: [],
+
+//     },
+
+//     {
+
+//         name: "I am selected",
+
+//         type: Type.Rectangle,
+
+//         state: State.Normal,
+
+//         selected: true,
+
+//         expanded: false,
+
+//         locked: false,
+
+//         hidden: false,
+
+//         implicitlySelected: false,
+
+//         children: [],
+
+//     },
+
+//     {
+
+//         name: "Selected & Expanded",
+
+//         type: Type.Rectangle,
+
+//         state: State.Normal,
+
+//         selected: true,
+
+//         expanded: true,
+
+//         locked: false,
+
+//         hidden: false,
+
+//         implicitlySelected: false,
+
+//         children: [
+
+//             {
+
+//                 name: "Child 1",
+
+//                 type: Type.Text,
+
+//                 state: State.Normal,
+
+//                 selected: false,
+
+//                 expanded: false,
+
+//                 locked: false,
+
+//                 hidden: false,
+
+//                 implicitlySelected: false,
+
+//             },
+
+//             {
+
+//                 name: "Child 2",
+
+//                 type: Type.Group,
+
+//                 state: State.Normal,
+
+//                 selected: false,
+
+//                 expanded: false,
+
+//                 locked: false,
+
+//                 hidden: false,
+
+//                 implicitlySelected: false,
+
+//             },
+
+//         ],
+
+//     },
+
+// ];
+
+export const SampleValues = [
+    {
+        name: "Basic Rectangle",
+        type: Type.Rectangle,
+        state: State.Normal,
+        selected: true,
+        expanded: false,
+        locked: false,
+        hidden: false,
+        implicitlySelected: false,
+        children: [],
+    },
+    {
+        name: "Locked Group",
+        type: Type.Group,
+        state: State.Locked,
+        selected: false,
+        expanded: false,
+        locked: true,
+        hidden: false,
+        implicitlySelected: false,
+        children: [],
+    },
+    {
+        name: "Hidden Component",
+        type: Type.Component,
+        state: State.Hidden,
+        selected: false,
+        expanded: false,
+        locked: false,
+        hidden: true,
+        implicitlySelected: false,
+        children: [],
+    },
+    {
+        name: "Vector Image Fill, Selected and Locked",
+        type: Type.VectorImageFill,
+        state: State.Selected,
+        selected: true,
+        expanded: false,
+        locked: true,
+        hidden: false,
+        implicitlySelected: false,
+        children: [],
+    },
+    {
+        name: "Top Level Frame, Expanded with Children",
+        type: Type.TopLevelFrame,
+        state: State.Expanded,
+        selected: false,
+        expanded: true,
+        locked: false,
+        hidden: false,
+        implicitlySelected: true,
+        children: [
+            {
+                name: "Child 1",
+                type: Type.Component,
+                state: State.Normal,
+                selected: false,
+                expanded: true,
+                locked: false,
+                hidden: false,
+                implicitlySelected: true,
+                children: [],
+            },
+            {
+                name: "Child 2",
+                type: Type.VectorAnimatedFill,
+                state: State.Normal,
+                selected: false,
+                expanded: true,
+                locked: false,
+                hidden: false,
+                implicitlySelected: true,
+            },
+        ],
+    },
+];
+
+<for|layer, i| of=SampleValues>
+    <Layer ...layer/>
+</for>
+<!-- CSS -->
+<!-- Component Template -->
+
+<style> 
+    /* Container for all layer elements */
+    .layers-container {
+        padding: 10px;
+        margin-bottom: 5px;
+        font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', sans-serif;
+
+    }
+    .layers-container:hover {
+        border: rgb(110, 110, 222) 1px solid;
+        transform: none;
+    }
+
+    .layer-item {
+        display: flex;
+        align-items: center; /* Aligns items in the center vertically */
+        height: 24px; /* Set a smaller height for each layer */
+        padding: 0 8px; /* Adjust padding as needed */
+        gap: 4px; 
+    }
+
+    /* Common styles for layer type indicators (icons) */
+    .layer-type-icon {
+        background-color: transparent; /* Ensures no background color */
+        display: flex;
+        justify-content: center; /* Centers the icon horizontally in its container */
+        align-items: center;
+    }
+
+    /* Styling for top-level components such as Frames */
+    .top-level-name {
+        font-weight: bold;
+    }    
+
+    /* Styling for the name of the layer */
+    .layer-name {
+        margin-left: auto; /* Pushes the name to align with the icon */
+        margin-right: auto; /* Adjust if you want more space on the right side */
+        white-space: nowrap; /* Prevents the text from wrapping */
+        overflow: hidden; /* Ensures that text does not overflow the container */
+        text-overflow: ellipsis;
+    }
+
+    /* Styling for buttons like Expand/Collapse */
+    .caret-button {
+        background: none;
+        border: none; /* Remove border if present */
+        cursor: pointer;
+    }
+
+    /* Styling for the container that holds child layers */
+    .layer-children {
+        padding-left: 20px; /* Indent child layers for hierarchy visualization */
+        margin-top: 5px;
+    }
+</style>

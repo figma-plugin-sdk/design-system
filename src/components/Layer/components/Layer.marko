@@ -1,0 +1,131 @@
+import Group from "../../../../icons/group.marko";
+import Frame from "../../../../icons/top-level-frame.marko";
+import ComponentIcon from "../../../../icons/component.marko";
+import VectorImageFill from "../../../../icons/image.marko";
+import CaretRight from "../../../../icons/caret-right.marko";
+import CaretDown from "../../../../icons/caret-down.marko";
+export enum Type {
+    Rectangle = "rectangle",
+    ComplexVector = "complex-vector",
+    VectorAnimatedFill = "vector-animated-fill",
+    VectorImageFill = "vector-image-fill",
+    Group = "group",
+    Frame = "frame",
+    TopLevelComponent = "top-level-component",
+    TopLevelFrame = "top-level-frame",
+    TopLevelScrollingFrame = "top-level-scrolling-frame",
+    ScrollingFrame = "scrolling-frame",
+    Component = "component",
+    Instance = "instance",
+    Text = "text",
+    Slice = "slice",
+    Mask = "mask",
+}
+export enum State {
+    Normal,
+    Locked,
+    Hidden,
+    Hover,
+    Selected,
+    Expanded,
+    ImplicitlySelected,
+}
+export interface Layer {
+    name: string;
+    type: Type;
+    state: State;
+    selected: boolean;
+    expanded: boolean;
+    locked: boolean;
+    hidden: boolean;
+    implicitlySelected: boolean;
+    children?: Array<Layer>; // children is array
+    //   layers: Layer[];
+}
+export interface Input extends Layer {}
+class {
+    onCreate(input: Input) {
+        this.state = { expanded: input.expanded || false};
+    }
+    toggleLock() {
+        this.input.locked = !this.input.locked;
+        // Logic to handle child layer indication (dot icon) goes here
+    }
+    toggleExpand() {
+        this.input.expanded = !this.input.expanded;
+        // Adjust children visibility indication as needed
+    }
+}
+
+<div class="layers-container">
+    <div class="layer-item">
+        <div class="layer-type-icon">
+            <if(input.children && input.children.length)>
+                <if (input.expanded)>
+                    <button type="button" class="caret-button" on-click('toggleExpand')>
+                        <CaretDown/>
+                    </button>
+                </if>
+                <else>
+                    <button type="button" class="caret-button" on-click('toggleExpand')>
+                        <CaretRight/>
+                    </button>
+                </else>
+            </if>
+            
+            <if(input.type === Type.TopLevelComponent || input.type === Type.TopLevelFrame || input.type === Type.TopLevelScrollingFrame)>
+                <span class="top-level-frame">
+                    <Frame/>
+                </span>
+                
+            </if>
+            
+            <if(input.type === Type.Rectangle)>
+                <span class="rectangle-type">
+                    <Group/>
+                </span>
+            </if>
+                
+            <if(input.type === Type.Group)>
+                <span class="group-type">
+                    <Group/>
+                </span>
+            </if>
+            <if(input.type === Type.Component)>
+                <span class="component-type">
+                    <ComponentIcon/>
+                </span>
+            </if>
+            <if(input.type === Type.VectorImageFill)>
+                <span class="image-fill-type">
+                    <VectorImageFill/>
+                </span>
+            </if>
+             <span class=`${input.type === Type.TopLevelComponent || input.type === Type.TopLevelFrame || input.type === Type.TopLevelScrollingFrame ? 'top-level-name' : 'layer-name'}`>
+                ${input.name}
+            </span>
+
+            
+        </div>
+        
+
+        <!-- <span class="layer-state">
+            ${input.state}
+        </span> -->
+        
+        <!-- <button type="button">
+            ${input.locked ? "Unlock" : "Lock"}
+        </button>
+        <button type="button">
+            ${input.hidden ? "Show" : "Hide"}
+        </button> -->
+    </div>
+    <if(input.expanded && input.children)>
+        <div class="layer-children">
+            <for|child| of=input.children>
+                <Layer ...child/>
+            </for>
+        </div>
+    </if>
+    
+</div>
