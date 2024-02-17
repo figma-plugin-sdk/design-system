@@ -26,7 +26,7 @@ import IconEffects from './effects.marko';
 import IconEllipses from './ellipses.marko';
 import IconEyedropper from './eyedropper.marko';
 import IconForward from './forward.marko';
-import IconFrame from './frame.marko';
+import IconFrame from './top-level-frame.marko';
 import IconGroup from './group.marko';
 import IconHidden from './hidden.marko';
 import IconHorizontalPadding from './horizontal-padding.marko';
