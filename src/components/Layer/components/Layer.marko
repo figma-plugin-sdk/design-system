@@ -1,9 +1,11 @@
 import Group from "../../../../icons/group.marko";
 import Frame from "../../../../icons/top-level-frame.marko";
+import Text from "../../../../icons/text.marko";
 import ComponentIcon from "../../../../icons/component.marko";
 import VectorImageFill from "../../../../icons/image.marko";
 import CaretRight from "../../../../icons/caret-right.marko";
 import CaretDown from "../../../../icons/caret-down.marko";
+import InstanceFilled from "../../../../icons/instance-filled.marko";
 export enum Type {
     Rectangle = "rectangle",
     ComplexVector = "complex-vector",
@@ -17,6 +19,7 @@ export enum Type {
     ScrollingFrame = "scrolling-frame",
     Component = "component",
     Instance = "instance",
+    InstanceFilled = "instance-filled",
     Text = "text",
     Slice = "slice",
     Mask = "mask",
@@ -59,7 +62,7 @@ class {
 
 <div class="layers-container">
     <div class="layer-item">
-        <div class="layer-type-icon">
+        <div class=["layer-type-icon", input.type === Type.Instance || input.type === Type.InstanceFilled || input.type === Type.Component || input.type === Type.TopLevelComponent ? 'instance-component' : '', input.children && input.children.length ? 'parent-container' : '']>
             <if(input.children && input.children.length)>
                 <if (input.expanded)>
                     <button type="button" class="caret-button" on-click('toggleExpand')>
@@ -73,16 +76,16 @@ class {
                 </else>
             </if>
             
-            <if(input.type === Type.TopLevelComponent || input.type === Type.TopLevelFrame || input.type === Type.TopLevelScrollingFrame)>
-                <span class="top-level-frame">
+            <if(input.type === Type.Frame || input.type === Type.TopLevelFrame || input.type === Type.TopLevelScrollingFrame)>
+                <span class="top-level-frame-type">
                     <Frame/>
                 </span>
                 
             </if>
             
-            <if(input.type === Type.Rectangle)>
-                <span class="rectangle-type">
-                    <Group/>
+            <if(input.type === Type.InstanceFilled)>
+                <span class="instance-filled-type">
+                    <InstanceFilled/>
                 </span>
             </if>
                 
@@ -101,13 +104,17 @@ class {
                     <VectorImageFill/>
                 </span>
             </if>
+            <if(input.type === Type.Text)>
+                <span class="text-type">
+                    <Text/>
+                </span>
+            </if>
              <span class=`${input.type === Type.TopLevelComponent || input.type === Type.TopLevelFrame || input.type === Type.TopLevelScrollingFrame ? 'top-level-name' : 'layer-name'}`>
                 ${input.name}
             </span>
 
             
         </div>
-        
 
         <!-- <span class="layer-state">
             ${input.state}
@@ -127,5 +134,5 @@ class {
             </for>
         </div>
     </if>
-    
+
 </div>
