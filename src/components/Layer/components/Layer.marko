@@ -61,8 +61,8 @@ class {
 }
 
 <div class="layers-container">
-    <div class="layer-item">
-        <div class=["layer-type-icon", input.type === Type.Instance || input.type === Type.InstanceFilled || input.type === Type.Component || input.type === Type.TopLevelComponent ? 'instance-component' : '', input.children && input.children.length ? 'parent-container' : '']>
+    <div class=["layer-item", input.type === Type.Instance || input.type === Type.InstanceFilled || input.type === Type.Component || input.type === Type.TopLevelComponent ? 'instance-component' : '', input.children && input.children.length ? 'parent-container' : '']>
+        <div class="layer-type-icon">
             <if(input.children && input.children.length)>
                 <if (input.expanded)>
                     <button type="button" class="caret-button" on-click('toggleExpand')>
@@ -109,12 +109,10 @@ class {
                     <Text/>
                 </span>
             </if>
-             <span class=`${input.type === Type.TopLevelComponent || input.type === Type.TopLevelFrame || input.type === Type.TopLevelScrollingFrame ? 'top-level-name' : 'layer-name'}`>
-                ${input.name}
-            </span>
-
-            
         </div>
+        <span class=`${input.type === Type.TopLevelComponent || input.type === Type.TopLevelFrame || input.type === Type.TopLevelScrollingFrame ? 'top-level-name' : 'layer-name'}`>
+                ${input.name}
+        </span>
 
         <!-- <span class="layer-state">
             ${input.state}
