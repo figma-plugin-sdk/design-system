@@ -1,5 +1,5 @@
 {
-  "name": "@figma-plugin-sdk/design-system",
+  "name": "@space/figma-plugin-sdk/design-system",
   "description": "The default Marko starter app",
   "version": "1.0.0",
   "type": "commonjs",
