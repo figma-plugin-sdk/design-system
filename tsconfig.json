@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "strict": true,
-    "target": "es6",
+    "target": "ESNext",
+    "module": "ESNext",
+    "noImplicitAny": false,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
@@ -16,7 +18,6 @@
     }
   },
   "include": [
-    "components/**/*",
-    "docs/**/*"
+    "src/**/*", "icons",
   ]
 }
