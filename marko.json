@@ -1,4 +1,5 @@
 {
   "script-lang": "ts",
-  "tags-dir": "./dist/components"
+  "tags-dir": "./src/components",
+  "taglib-id": "my-custom-tag-library"
 }
