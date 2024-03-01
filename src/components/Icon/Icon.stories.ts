@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/marko';
 import Icon from './Icon.marko'; // Adjust the import path as needed
-import LockOff from "../../../icons/lock-off.marko";
-import LockOn from "../../../icons/lock-on.marko";
+import LockOff from "../../icons/lock-off.marko";
+import LockOn from "../../icons/lock-on.marko";
 
 
 export default {

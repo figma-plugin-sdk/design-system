@@ -25,7 +25,7 @@ export default {
     },
 } as Meta;
 
-const Template: Story<Input> = (args) => ({
+const Template: Story = (args) => ({
     template: `
     <div class=[
       "type",

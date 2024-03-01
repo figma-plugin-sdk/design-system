@@ -19,7 +19,7 @@ export default {
     },
 } as Meta;
 
-const Template: StoryObj = {
+const Template = {
     render: (args) => ({
         template: (args),
         methods: {

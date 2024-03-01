@@ -1,11 +1,11 @@
-import { Input } from "../Icon/Icon.marko";
+import { Input as IconInput } from "../Icon/Icon.marko";
 export interface IconButtonProps {
     iconText?: string;
     selected?: boolean;
     spin?: boolean;
     className?: string;
 }
-export type Input = IconButtonProps;
+export type Input = IconButtonProps & IconInput;
 export const Default = {
     iconText: "",
     selected: false,

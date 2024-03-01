@@ -46,10 +46,10 @@ class {
     <div class="header" on-click("handleClick") tabindex="0">
         <div class="icon">
             <if(state.expanded)>
-                <Icon iconName=IconCaretDown color="black"/>
+                <Icon iconName=(IconCaretDown as unknown as string) color="black"/>
             </if>
             <else>
-                <Icon iconName=IconCaretRight color="black"/>
+                <Icon iconName=(IconCaretRight as unknown as string) color="black"/>
             </else>
         </div>
         <div class="title">

@@ -20,6 +20,7 @@ interface Disclosure {
 const Template: Story = (args) => ({
     input: args,
     methods: {
+        input: args,
         toggleDisclosure(item) {
             // Simulate state update by modifying args and forcing re-render
             const newItems = args.items.map((i) =>

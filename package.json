@@ -72,7 +72,7 @@
     "@ci:build": "nr build",
     "@ci:lint": "nr lint",
     "@ci:test": "vitest run --coverage --no-color",
-    "build": "mtc",
+    "build": "mtc --project tsconfig.build.json",
     "clean": "rm -rf coverage dist node_modules/.{cache,vite,vitest}",
     "format": "eslint --format unix --fix .; stylelint --formatter unix --fix '**/*.css'; prettier . --write --log-level=warn",
     "lint": "mtc && eslint --format unix . && stylelint --formatter unix '**/*.css' && prettier . --check --log-level=warn",

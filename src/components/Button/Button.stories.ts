@@ -32,8 +32,8 @@ export default meta;
  */
 type Story = StoryObj<Input>;
 
-const commonArgs: Input = {
-  renderBody: "Click me" as any,
+const commonArgs: Partial<Input> = {
+  // renderBody: "Click me" as any,
   variant: "primary",
 };
 

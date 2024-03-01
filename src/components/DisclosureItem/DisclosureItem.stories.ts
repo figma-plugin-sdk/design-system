@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/marko';
-import DisclosureItem from './DisclosureItem.marko';
 import { IconCaretDown } from '../../../icons/index';
 import { IconCaretRight } from '../../../icons/index';
+import DisclosureItem from './DisclosureItem.marko';
 
 export default {
     title: 'DisclosureItem',
