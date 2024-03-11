@@ -1,27 +1,31 @@
 {
-    "compilerOptions": {
-      "strict": true,
-      "target": "ESNext",
-      "outDir": "./dist",
-      "module": "ESNext",
-      "noImplicitAny": false,
-      "moduleResolution": "node",
-      "allowSyntheticDefaultImports": true,
-      "resolveJsonModule": true,
-      "lib": [
-        "es2018",
-        "dom"
-      ],
-      "paths": {
-        "@fps/*": [
-          "./components/*"
-        ]
-      }
-    },
-    "include": [
-      "src/**/*.marko", "icons",
-    ],
-    "exclude": [
-        "*.stories.ts"
-    ]
-  }
+  "compilerOptions": {
+    "strict": true,
+    "target": "ESNext",
+    "rootDir": "src",
+    "outDir": "dist",
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "lib": ["dom", "ESNext"],
+    "incremental": true,
+
+    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
+    "paths": {
+      "@fps/*": [
+        "./components/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.marko"
+  ],
+  "exclude": [
+      "*.stories.ts"
+  ]
+}

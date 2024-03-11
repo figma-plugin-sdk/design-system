@@ -3,6 +3,7 @@
     class=["select-menu", input.customClass]
     disabled=input.disabled
     aria-disabled=(input.disabled ? "true" : undefined)
+    required=input.required
 >
     <for|option| of=input.options>
         <option
@@ -24,4 +25,5 @@ export interface Input {
     selectedValue?: string;
     disabled?: boolean;
     customClass?: string; // Custom class for styling
+    required?: boolean;
 }

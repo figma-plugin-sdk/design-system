@@ -39,7 +39,7 @@ devDependencies:
     version: 7.6.4
   '@storybook/addon-designs':
     specifier: ^7.0.7
-    version: 7.0.7(@storybook/addon-docs@7.6.4)(@storybook/addons@7.6.4)(@storybook/components@7.6.4)(@storybook/manager-api@7.6.4)(@storybook/preview-api@7.6.4)(@storybook/theming@7.6.4)(react-dom@18.2.0)(react@18.2.0)
+    version: 7.0.7(@storybook/addon-docs@7.6.4)(@storybook/addons@7.6.4)(@storybook/components@7.6.4)(@storybook/manager-api@7.6.4)(@storybook/preview-api@7.6.17)(@storybook/theming@7.6.4)(react-dom@18.2.0)(react@18.2.0)
   '@storybook/addon-docs':
     specifier: ^7.6.4
     version: 7.6.4(react-dom@18.2.0)(react@18.2.0)
@@ -132,7 +132,7 @@ devDependencies:
     version: 7.6.17
   storybook-addon-data-theme-switcher:
     specifier: ^0.1.7
-    version: 0.1.7(@storybook/components@7.6.4)(@storybook/manager-api@7.6.4)(@storybook/preview-api@7.6.4)(@storybook/theming@7.6.4)(@storybook/types@7.6.4)(react-dom@18.2.0)(react@18.2.0)
+    version: 0.1.7(@storybook/components@7.6.4)(@storybook/manager-api@7.6.4)(@storybook/preview-api@7.6.17)(@storybook/theming@7.6.4)(@storybook/types@7.6.4)(react-dom@18.2.0)(react@18.2.0)
   storybook-dark-mode:
     specifier: ^3.0.3
     version: 3.0.3(react-dom@18.2.0)(react@18.2.0)
@@ -3407,7 +3407,7 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/addon-designs@7.0.7(@storybook/addon-docs@7.6.4)(@storybook/addons@7.6.4)(@storybook/components@7.6.4)(@storybook/manager-api@7.6.4)(@storybook/preview-api@7.6.4)(@storybook/theming@7.6.4)(react-dom@18.2.0)(react@18.2.0):
+  /@storybook/addon-designs@7.0.7(@storybook/addon-docs@7.6.4)(@storybook/addons@7.6.4)(@storybook/components@7.6.4)(@storybook/manager-api@7.6.4)(@storybook/preview-api@7.6.17)(@storybook/theming@7.6.4)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-4Ec85kgv/r55Zh5xOHSIq7b9h7PyYhavMpwLmjpzeOkEdFwiNM9KCTK8SE58yCXzbkrw1JIGb3+FAWfR5JfK5g==}
     peerDependencies:
       '@storybook/addon-docs': ^7.0.0
@@ -3429,7 +3429,7 @@ packages:
       '@storybook/addons': 7.6.4(react-dom@18.2.0)(react@18.2.0)
       '@storybook/components': 7.6.4(react-dom@18.2.0)(react@18.2.0)
       '@storybook/manager-api': 7.6.4(react-dom@18.2.0)(react@18.2.0)
-      '@storybook/preview-api': 7.6.4
+      '@storybook/preview-api': 7.6.17
       '@storybook/theming': 7.6.4(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -14196,7 +14196,7 @@ packages:
     resolution: {integrity: sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==}
     dev: true
 
-  /storybook-addon-data-theme-switcher@0.1.7(@storybook/components@7.6.4)(@storybook/manager-api@7.6.4)(@storybook/preview-api@7.6.4)(@storybook/theming@7.6.4)(@storybook/types@7.6.4)(react-dom@18.2.0)(react@18.2.0):
+  /storybook-addon-data-theme-switcher@0.1.7(@storybook/components@7.6.4)(@storybook/manager-api@7.6.4)(@storybook/preview-api@7.6.17)(@storybook/theming@7.6.4)(@storybook/types@7.6.4)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-UsUQjvah+Sq2UXVluofJqhrMshXdb20BUX4MsMDTlmh9XtF3rAJ8Wg2GZSVysZdX/jdLSEpdP6ln8c5i+g4RvA==}
     engines: {node: '>=18.0.0'}
     requiresBuild: true
@@ -14216,7 +14216,7 @@ packages:
     dependencies:
       '@storybook/components': 7.6.4(react-dom@18.2.0)(react@18.2.0)
       '@storybook/manager-api': 7.6.4(react-dom@18.2.0)(react@18.2.0)
-      '@storybook/preview-api': 7.6.4
+      '@storybook/preview-api': 7.6.17
       '@storybook/theming': 7.6.4(react-dom@18.2.0)(react@18.2.0)
       '@storybook/types': 7.6.4
       react: 18.2.0

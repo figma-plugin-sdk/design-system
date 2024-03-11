@@ -1,5 +1,8 @@
 {
   "script-lang": "ts",
   "tags-dir": "./src/components",
-  "taglib-id": "my-custom-tag-library"
+  "taglib-id": "design-system",
+  "taglib-imports":[
+    "./src/components/Icon/marko.json"
+  ]
 }

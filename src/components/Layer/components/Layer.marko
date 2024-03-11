@@ -1,11 +1,11 @@
-import Group from "../../../../icons/group.marko";
-import Frame from "../../../../icons/top-level-frame.marko";
-import Text from "../../../../icons/text.marko";
-import ComponentIcon from "../../../../icons/component.marko";
-import VectorImageFill from "../../../../icons/image.marko";
-import CaretRight from "../../../../icons/caret-right.marko";
-import CaretDown from "../../../../icons/caret-down.marko";
-import InstanceFilled from "../../../../icons/instance-filled.marko";
+import Group from "../../Icon/components/group.marko";
+import Frame from "../../Icon/components/top-level-frame.marko";
+import Text from "../../Icon/components/text.marko";
+import ComponentIcon from "../../Icon/components/component-instance.marko";
+import VectorImageFill from "../../Icon/components/image.marko";
+import CaretRight from "../../Icon/components/caret-right.marko";
+import CaretDown from "../../Icon/components/caret-down.marko";
+import InstanceFilled from "../../Icon/components/instance-filled.marko";
 export enum Type {
     Rectangle = "rectangle",
     ComplexVector = "complex-vector",
@@ -48,7 +48,7 @@ export interface Layer {
 export interface Input extends Layer {}
 class {
     onCreate(input: Input) {
-        this.state = { expanded: input.expanded || false};
+        this.state = { expanded: input.expanded || false };
     }
     toggleLock() {
         this.input.locked = !this.input.locked;
@@ -61,34 +61,54 @@ class {
 }
 
 <div class="layers-container">
-    <div class=["layer-item", input.type === Type.Instance || input.type === Type.InstanceFilled || input.type === Type.Component || input.type === Type.TopLevelComponent ? 'instance-component' : '', input.children && input.children.length ? 'parent-container' : '']>
+    <div class=[
+        "layer-item",
+        input.type === Type.Instance ||
+        input.type === Type.InstanceFilled ||
+        input.type === Type.Component ||
+        input.type === Type.TopLevelComponent
+            ? "instance-component"
+            : "",
+        input.children && input.children.length ? "parent-container" : "",
+    ]>
         <div class="layer-type-icon">
             <if(input.children && input.children.length)>
-                <if (input.expanded)>
-                    <button type="button" class="caret-button" on-click('toggleExpand')>
+                <if(input.expanded)>
+                    <button
+                        type="button"
+                        class="caret-button"
+                        on-click("toggleExpand")
+                    >
                         <CaretDown/>
                     </button>
                 </if>
                 <else>
-                    <button type="button" class="caret-button" on-click('toggleExpand')>
+                    <button
+                        type="button"
+                        class="caret-button"
+                        on-click("toggleExpand")
+                    >
                         <CaretRight/>
                     </button>
                 </else>
             </if>
-            
-            <if(input.type === Type.Frame || input.type === Type.TopLevelFrame || input.type === Type.TopLevelScrollingFrame)>
+
+            <if(
+                input.type === Type.Frame ||
+                input.type === Type.TopLevelFrame ||
+                input.type === Type.TopLevelScrollingFrame
+            )>
                 <span class="top-level-frame-type">
                     <Frame/>
                 </span>
-                
             </if>
-            
+
             <if(input.type === Type.InstanceFilled)>
                 <span class="instance-filled-type">
                     <InstanceFilled/>
                 </span>
             </if>
-                
+
             <if(input.type === Type.Group)>
                 <span class="group-type">
                     <Group/>
@@ -110,14 +130,12 @@ class {
                 </span>
             </if>
         </div>
-        <span class=`${input.type === Type.TopLevelComponent || input.type === Type.TopLevelFrame || input.type === Type.TopLevelScrollingFrame ? 'top-level-name' : 'layer-name'}`>
-                ${input.name}
+        <span class=`${input.type === Type.TopLevelComponent || input.type === Type.TopLevelFrame || input.type === Type.TopLevelScrollingFrame ? "top-level-name" : "layer-name"}`>
+            ${input.name}
         </span>
-
         <!-- <span class="layer-state">
             ${input.state}
         </span> -->
-        
         <!-- <button type="button">
             ${input.locked ? "Unlock" : "Lock"}
         </button>
@@ -132,5 +150,4 @@ class {
             </for>
         </div>
     </if>
-
 </div>

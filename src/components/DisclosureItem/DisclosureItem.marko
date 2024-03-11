@@ -1,6 +1,6 @@
 import Icon from "../Icon/Icon.marko";
-import { IconCaretDown } from "../../../icons/index";
-import { IconCaretRight } from "../../../icons/index";
+import  IconCaretDown  from "../Icon/components/caret-down.marko";
+import  IconCaretRight  from "../Icon/components/caret-right.marko";
 export type DisclosureItemProps = {
     uniqueId?: string;
     title?: string;
@@ -46,10 +46,16 @@ class {
     <div class="header" on-click("handleClick") tabindex="0">
         <div class="icon">
             <if(state.expanded)>
-                <Icon iconName=(IconCaretDown as unknown as string) color="black"/>
+                <Icon
+                    iconName=IconCaretDown as unknown as string
+                    color="black"
+                />
             </if>
             <else>
-                <Icon iconName=(IconCaretRight as unknown as string) color="black"/>
+                <Icon
+                    iconName=IconCaretRight as unknown as string
+                    color="black"
+                />
             </else>
         </div>
         <div class="title">
